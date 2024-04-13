@@ -2,13 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../images/logo/ComHub_prev_ui.png";
+import ScrollToTop from "../ScrollToTop";
 const PreHeader = () => {
   return (
     <div className="preHeader">
       <div className="container">
-        <a href="https://www.facebook.com/" target="_blank">
+        <ScrollToTop to="/">
           <img src={logo} />
-        </a>
+        </ScrollToTop>
 
         <div className="search">
           <input type="text" placeholder="Recherche.." />

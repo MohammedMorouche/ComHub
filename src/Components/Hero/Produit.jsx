@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 const Produit = ({ imgSrc, titreProduit, prixProduit }) => {
   return (
     <div className="produit">
-      <a href="">
+      <a >
         <img src={imgSrc} alt="" />
         <h4 className="titreDeProduit">{titreProduit}</h4>
         <h5 className="PrixDeProduit">{prixProduit}</h5>

@@ -17,10 +17,30 @@ const NosCategories = () => {
       <div className="container">
         <h1>Nos Catégories</h1>
         <div className="categories-container">
-          <Category title="Laptops" image={img1} imageHover={img1Hover} />
-          <Category title="Composants" image={img2} imageHover={img2Hover} />
-          <Category title="Périphériques" image={img3} imageHover={img3Hover} />
-          <Category title="Accessoires" image={img4} imageHover={img4Hover} />
+          <Category
+            cat="shop/laptops"
+            title="Laptops"
+            image={img1}
+            imageHover={img1Hover}
+          />
+          <Category
+            cat="shop/composants"
+            title="Composants"
+            image={img2}
+            imageHover={img2Hover}
+          />
+          <Category
+            cat="shop/peripheriques"
+            title="Périphériques"
+            image={img3}
+            imageHover={img3Hover}
+          />
+          <Category
+            cat="shop/accesoires"
+            title="Accessoires"
+            image={img4}
+            imageHover={img4Hover}
+          />
         </div>
       </div>
     </div>

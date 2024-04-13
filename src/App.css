@@ -175,10 +175,10 @@ nav li:hover {
 .dropdown-active .dropdown-menu {
   display: block;
 }
-.cc{
+.cc {
   justify-content: space-between;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .cc .ff {
   margin-top: 3px;
@@ -301,31 +301,34 @@ nav li:hover {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.produitAlaUne .produits .produit {
+.produitAlaUne .produits {
   width: 24%;
-  text-align: center;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
+
   /* border: 1px solid #777; */
   /* border-radius: 15px; */
   padding: 20px;
 }
-.produitAlaUne .produits .produit img {
+.produit {
+  text-align: center;
+  display: flex;
+  /* justify-content: space-evenly; */
+  flex-direction: column;
+}
+.produit img {
   width: 100%;
 }
-.produitAlaUne .produits .produit h4 {
+.produit h4 {
   height: 20px;
 }
-.produitAlaUne .produits .produit button {
+.produit button {
   width: 60%;
   margin: 10px auto;
 }
-.produitAlaUne .produits .produit .titreDeProduit,
+.produit .titreDeProduit,
 .PrixDeProduit {
   margin: 15px;
 }
-.produitAlaUne .produits .produit .titreDeProduit{
+.produits .produit .titreDeProduit {
   margin-bottom: 30px;
 }
 .PrixDeProduit {
@@ -419,7 +422,7 @@ nav li:hover {
 .two:hover {
   opacity: 1;
 }
- 
+
 .logos {
   overflow: hidden;
   padding: 60px 0;
@@ -560,4 +563,40 @@ a:hover {
 
 .category:hover img {
   transform: scale(1.03);
+}
+
+.shop-container .container .sidebar {
+  width: 20%;
+}
+.shop-container .pathSidebar {
+  /* display: flex; */
+  margin: 30px 50px;
+  margin-bottom: 60px;
+  font-size: 25px;
+}
+.shop-container .pathSidebar p {
+  display: inline-block;
+}
+.shop-container .pathSidebar .shopp {
+  font-weight: bold;
+}
+.shop-container .shop {
+  display: flex;
+}
+.shop-container .shop .sidebar {
+  width: 25%;
+  height: 100vh;
+}
+.shop-container .shop .sidebar ul li {
+  height: 40px;
+  font-size: 20px;
+  padding-left: 10px;
+}
+.shop-container .products-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.shop-container .products-container .produit {
+  width: 30%;
 }

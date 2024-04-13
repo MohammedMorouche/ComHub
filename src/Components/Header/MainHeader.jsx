@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ScrollToTop from "../ScrollToTop";
+import { Link } from "react-router-dom";
+import ActiveLink from "../ActiveLink";
 const MainHeader =()=>{
     const [isHovered, setIsHovered] = useState(false);
 
@@ -22,7 +24,7 @@ const MainHeader =()=>{
                 
               </li>
               <li>
-                <ScrollToTop to="/shop">Shop</ScrollToTop>
+                <ScrollToTop to="/shop/all">Shop</ScrollToTop>
               </li>
               <li
                 onMouseEnter={handleMouseEnter}
@@ -35,16 +37,17 @@ const MainHeader =()=>{
                 {isHovered && (
                   <ul className="dropdown-menu">
                     <li>
-                      <a href="#">Laptops</a>
+                      <Link to="/shop/laptops">Laptops</Link>
+                      
                     </li>
                     <li>
-                      <a href="#">Composants</a>
+                      <Link to="/shop/composants">Composants</Link>
                     </li>
                     <li>
-                      <a href="#">Périphériques</a>
+                      <Link to="/shop/peripheriques">Périphériques</Link>
                     </li>
                     <li>
-                      <a href="#">Accessoires</a>
+                      <Link to="/shop/accesoires">Accessoires</Link>
                     </li>
                   </ul>
                 )}

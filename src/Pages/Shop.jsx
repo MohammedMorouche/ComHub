@@ -1,22 +1,11 @@
-
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SideBar from "../Components/Hero/SideBar";
 const Shop = () => {
-  return (
-    <>
-  <div className="kader">      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1>
-      <h1>Shop</h1></div>
-
-    </>
+  return(
+        <SideBar />
+    
   );
-};
+}
 export default Shop;
+
+

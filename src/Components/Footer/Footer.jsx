@@ -11,9 +11,9 @@ const Footer = () => {
     <div className="footer_glo">
       <div className="footer">
         <div className="logo">
-          <a href="">
-            <img src={logo} alt="" />
-          </a>
+          <ScrollToTop to="/">
+            <img src={logo} />
+          </ScrollToTop>
 
           {/* <h1 className="od">
           Com<span>Hub</span>
@@ -24,21 +24,16 @@ const Footer = () => {
           <ul>
             <li>
               <ScrollToTop to="/">Acceuil</ScrollToTop>
-          
             </li>
             <li>
-            <ScrollToTop to="/shop">Shop</ScrollToTop>
-
-             
+              <ScrollToTop to="/shop">Shop</ScrollToTop>
             </li>
 
             <li>
-            <ScrollToTop to="/apropos">À Propos</ScrollToTop>
-              
+              <ScrollToTop to="/apropos">À Propos</ScrollToTop>
             </li>
             <li>
               <ScrollToTop to="/contact">Contact</ScrollToTop>
-             
             </li>
           </ul>
         </div>
