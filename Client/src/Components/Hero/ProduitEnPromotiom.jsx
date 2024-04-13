@@ -12,22 +12,22 @@ const ProduitEnPromotion = ()=>{
             <Produit
               imgSrc={image1}
               titreProduit="ASUS 24″ LED – TUF VG249Q1A"
-              prixProduit="37900 DA"
+              prixProduit="37900"
             />
             <Produit
               imgSrc={image2}
               titreProduit="Intel Core i5-13400F (2.5 GHz / 4.6 GHz)"
-              prixProduit="41900 DA"
+              prixProduit="41900"
             />
             <Produit
               imgSrc={image3}
               titreProduit="FSP Hydro M Pro 800W"
-              prixProduit="16900 DA"
+              prixProduit="16900"
             />
             <Produit
               imgSrc={image4}
               titreProduit="AMD Ryzen 7 5800X (3.8 GHz / 4.7 GHz) TRAY"
-              prixProduit="48900 DA"
+              prixProduit="48900"
             />
           </div>
         </div>

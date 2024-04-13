@@ -12,7 +12,7 @@ function Landing() {
           <p>Réinventez votre expérience informatique</p>
 
           <h2>Explorez dès maintenant!</h2>
-          <Link to="/shop"><button className="button-ani">Shop</button></Link>
+          <Link to="/shop/all"><button className="button-ani">Shop</button></Link>
           
         </div>
       </div>

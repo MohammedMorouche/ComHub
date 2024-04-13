@@ -37,17 +37,17 @@ const MainHeader =()=>{
                 {isHovered && (
                   <ul className="dropdown-menu">
                     <li>
-                      <Link to="/shop/laptops">Laptops</Link>
+                      <ScrollToTop to="/shop/laptops">Laptops</ScrollToTop>
                       
                     </li>
                     <li>
-                      <Link to="/shop/composants">Composants</Link>
+                      <ScrollToTop to="/shop/composants">Composants</ScrollToTop>
                     </li>
                     <li>
-                      <Link to="/shop/peripheriques">Périphériques</Link>
+                      <ScrollToTop to="/shop/peripheriques">Périphériques</ScrollToTop>
                     </li>
                     <li>
-                      <Link to="/shop/accesoires">Accessoires</Link>
+                      <ScrollToTop to="/shop/accesoires">Accessoires</ScrollToTop>
                     </li>
                   </ul>
                 )}

@@ -69,7 +69,7 @@ const SideBar = () => {
       },
       {
         id: 8,
-        imgSrc:image4,
+        imgSrc: image4,
         titreProduit: "Accessory 2",
         prixProduit: 39.99,
         category: "accesoires",
@@ -103,7 +103,9 @@ const SideBar = () => {
 
     // Filter by category
     if (activeFilter !== "all") {
-      filtered = filtered.filter((product) => product.category === activeFilter);
+      filtered = filtered.filter(
+        (product) => product.category === activeFilter
+      );
     }
 
     // Filter by price
@@ -155,24 +157,36 @@ const SideBar = () => {
                 </a>
               </li>
               <li>
-                <a href="" onClick={() => handleFilterChange("laptops")}>
-                  <ActiveLink to="/shop/laptops">Laptops</ActiveLink>
-                </a>
+                <ActiveLink
+                  onClick={() => handleFilterChange("laptops")}
+                  to="/shop/laptops"
+                >
+                  Laptops
+                </ActiveLink>
               </li>
               <li>
-                <a href="" onClick={() => handleFilterChange("composants")}>
-                  <ActiveLink to="/shop/composants">Composants</ActiveLink>
-                </a>
+                <ActiveLink
+                  onClick={() => handleFilterChange("composants")}
+                  to="/shop/composants"
+                >
+                  Composants
+                </ActiveLink>
               </li>
               <li>
-                <a href="" onClick={() => handleFilterChange("peripheriques")}>
-                  <ActiveLink to="/shop/peripheriques">Périphériques</ActiveLink>
-                </a>
+                <ActiveLink
+                  onClick={() => handleFilterChange("peripheriques")}
+                  to="/shop/peripheriques"
+                >
+                  Périphériques
+                </ActiveLink>
               </li>
               <li>
-                <a href="" onClick={() => handleFilterChange("accesoires")}>
-                  <ActiveLink to="/shop/accesoires">Accessoires</ActiveLink>
-                </a>
+                <ActiveLink
+                  onClick={() => handleFilterChange("accesoires")}
+                  to="/shop/accesoires"
+                >
+                  Accessoires
+                </ActiveLink>
               </li>
             </ul>
             <h3>Filtres</h3>
@@ -251,4 +265,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-

@@ -9,7 +9,7 @@ const ScrollToTop = ({ to, children }) => {
   };
 
   return (
-    <Link to={to} onClick={handleClick}>
+    <Link to={to} onClick={handleClick}>  
       {children}
     </Link>
   );

@@ -301,7 +301,7 @@ nav li:hover {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.produitAlaUne .produits {
+.produitAlaUne .produits .produit {
   width: 24%;
 
   /* border: 1px solid #777; */

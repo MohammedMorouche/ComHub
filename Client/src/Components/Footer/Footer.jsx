@@ -41,16 +41,16 @@ const Footer = () => {
           <h2>Catégories</h2>
           <ul>
             <li>
-              <a href="">Laptops</a>
+              <ScrollToTop to = "shop/laptops">Laptops</ScrollToTop>
             </li>
             <li>
-              <a href="">Composants</a>
+              <ScrollToTop to = "shop/composants">Composants</ScrollToTop>
             </li>
             <li>
-              <a href="">Périphériques</a>
+              <ScrollToTop to = "shop/peripheriques">Périphériques</ScrollToTop>
             </li>
             <li>
-              <a href="">Accessoires</a>
+              <ScrollToTop to = "shop/accesoires">Accessoires</ScrollToTop>
             </li>
           </ul>
         </div>

@@ -5,7 +5,7 @@ const Produit = ({ imgSrc, titreProduit, prixProduit }) => {
       <a >
         <img src={imgSrc} alt="" />
         <h4 className="titreDeProduit">{titreProduit}</h4>
-        <h5 className="PrixDeProduit">{prixProduit}</h5>
+        <h5 className="PrixDeProduit">{prixProduit} DA</h5>
         <button className="button-ani">Ajouter au panier</button>
       </a>
     </div>
