@@ -1,0 +1,91 @@
+
+.App{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.AppHeader{
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 20px 4px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.AppFooter{
+height: 50px;
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+border-top: 1px solid rgba(0, 0, 0, 0.15);
+
+}
+.sidebarandpage{
+  display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+.Sidebar{
+  height: 100%;
+}
+.AppContent{
+  padding-left: 14px;
+}
+.search{
+  overflow: hidden;
+  margin-left: 15%;
+  margin-right: 15%;
+  padding: 6px;
+  padding: 10px;
+}
+.search input[type=text] {
+  float: left;
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+}
+.tablestyle {
+
+  display: grid;
+  place-items: center;
+  height: 80vh; 
+  padding: 50px,10%;
+  
+  border-radius: 0.6%;
+
+}
+.tabclient{  color: aliceblue;
+}
+.ClientStyle{
+
+  display: flex;
+  place-items: center;
+  height: 80vh; 
+  padding: 50px,10%;
+  
+  border-radius: 0.6%;
+
+
+}
+.mon7ana{
+  display: flex;
+  place-items: center;
+  height: 70vh; 
+}
+
+
+
+  .dash1 {
+    font-size: 30px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+        text-align: left;
+  }
+  
+  
