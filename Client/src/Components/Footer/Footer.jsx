@@ -6,6 +6,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import ScrollToTop from "../ScrollToTop";
+import ActiveLink from "../ActiveLink";
 const Footer = () => {
   return (
     <div className="footer_glo">
@@ -23,17 +24,17 @@ const Footer = () => {
           <h2>Pages</h2>
           <ul>
             <li>
-              <ScrollToTop to="/">Acceuil</ScrollToTop>
+              <ActiveLink to="/">Acceuil</ActiveLink>
             </li>
             <li>
-              <ScrollToTop to="/shop">Shop</ScrollToTop>
+              <ActiveLink to="/shop/all">Shop</ActiveLink>
             </li>
 
             <li>
-              <ScrollToTop to="/apropos">À Propos</ScrollToTop>
+              <ActiveLink to="/apropos">À Propos</ActiveLink>
             </li>
             <li>
-              <ScrollToTop to="/contact">Contact</ScrollToTop>
+              <ActiveLink to="/contact">Contact</ActiveLink>
             </li>
           </ul>
         </div>
@@ -41,16 +42,16 @@ const Footer = () => {
           <h2>Catégories</h2>
           <ul>
             <li>
-              <ScrollToTop to = "shop/laptops">Laptops</ScrollToTop>
+              <ActiveLink to = "/shop/laptops">Laptops</ActiveLink>
             </li>
             <li>
-              <ScrollToTop to = "shop/composants">Composants</ScrollToTop>
+              <ActiveLink to = "/shop/composants">Composants</ActiveLink>
             </li>
             <li>
-              <ScrollToTop to = "shop/peripheriques">Périphériques</ScrollToTop>
+              <ActiveLink to = "/shop/peripheriques">Périphériques</ActiveLink>
             </li>
             <li>
-              <ScrollToTop to = "shop/accesoires">Accessoires</ScrollToTop>
+              <ActiveLink to = "/shop/accesoires">Accessoires</ActiveLink>
             </li>
           </ul>
         </div>

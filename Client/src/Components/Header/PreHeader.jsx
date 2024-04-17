@@ -24,8 +24,8 @@ const PreHeader = () => {
           </button>
 
           <div className="log-in">
-            <button className="button-ani">Se connecter</button>
-            <button className="button-ani">S’enregistrer</button>
+            <button className="button-ani">Connexion</button>
+            <button className="button-ani">Inscription</button>
           </div>
         </div>
       </div>
