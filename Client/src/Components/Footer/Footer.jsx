@@ -60,7 +60,7 @@ const Footer = () => {
           <ul>
             <li>
               <FontAwesomeIcon icon={faLocationDot} className="piw" />
-              <p>Adresse : tlemcen,algerie</p>
+              <p>Adresse : Tlemcen, Algérie</p>
             </li>
             <li>
               <FontAwesomeIcon icon={faPhone} className="piw" />

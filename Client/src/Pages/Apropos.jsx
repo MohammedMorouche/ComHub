@@ -1,9 +1,10 @@
-
+import Header from "../Components/Header/Header"
 
 const Aprops = () => {
   return (
     <>
-      <h1>Apropos</h1>
+      <Header/>
+      <h1>A propos</h1>
     </>
   );
 };

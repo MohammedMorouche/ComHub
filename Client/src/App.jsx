@@ -14,7 +14,6 @@ function App() {
     <Router>
       <div>
         {/* Your header goes here */}
-        <Header />
         <Routes>
           <Route path="/" element={<Acceuil />} />
           <Route path="/shop" element={<Shop />}>

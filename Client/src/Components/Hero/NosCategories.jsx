@@ -12,7 +12,7 @@ import img4 from "../../images/categories/4-pinta.jpg";
 import img4Hover from "../../images/categories/4-4-pinta.jpg";
 
 const NosCategories = () => {
-  return (
+  return (  
     <div className="NosCategories">
       <div className="container">
         <h1>Nos Catégories</h1>

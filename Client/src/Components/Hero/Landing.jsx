@@ -1,4 +1,3 @@
-import ScrollToTop from '../ScrollToTop';
 import ActiveLink from '../ActiveLink';
 function Landing() {
   return (
