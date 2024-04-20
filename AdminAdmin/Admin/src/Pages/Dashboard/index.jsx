@@ -7,7 +7,10 @@ import ChartJS from 'chart.js/auto';
 function Dashboard() {
   return (
     <div>
-      <h3 className='dash1'>Dashboard</h3>
+      <div className="dash1-container">
+        <div className="dash1">Dashboard</div>
+      </div>
+      <div className="cards-container">
       <Space direction="horizontal">
         <DashboardCard
           icon={<ShoppingCartOutlined style={{ color: 'green', backgroundColor: 'rgba(0,255,0,0.25)', borderRadius: 20, fontSize: 24, padding: 8 }} />}
@@ -25,6 +28,7 @@ function Dashboard() {
           value={120}
         />
       </Space>
+      </div>
       <Space>
       </Space>
       

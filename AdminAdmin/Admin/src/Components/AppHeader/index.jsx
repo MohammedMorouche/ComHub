@@ -1,15 +1,12 @@
 import { Image, Space, Typography } from "antd";
-
+import Comhubimg from "../../assets/ComHub__1_-removebg-preview.png"
 
 function AppHeader() {
     return (
         <div className="AppHeader">
-           <Image
-        width={40}
-        src=""
-      ></Image>
+          <img className="logostyle" src={Comhubimg} alt="ComHub logo" />
 
-            <Typography.Title style={{ margin: "0 auto" }}>ComHub</Typography.Title>
+            <h1 className="titlestyle">ComHub dashboard</h1>
             <Space />
         </div>
     );
