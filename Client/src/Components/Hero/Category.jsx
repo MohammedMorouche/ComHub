@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import ActiveLink from "../ActiveLink";
 import ScrollToTop from "../ScrollToTop";
 const Category = ({ image, imageHover, title, cat }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -11,10 +12,10 @@ const Category = ({ image, imageHover, title, cat }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <ScrollToTop to={cat}>
+      <ActiveLink to={cat}>
         <img src={isHovered ? imageHover : image} alt={title} loading="lazy" />
         <h2>{title}</h2>
-      </ScrollToTop>
+      </ActiveLink>
     </div>
   );
 };

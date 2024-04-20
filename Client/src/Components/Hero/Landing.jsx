@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-
+import ScrollToTop from '../ScrollToTop';
+import ActiveLink from '../ActiveLink';
 function Landing() {
   return (
     <>
@@ -12,7 +12,7 @@ function Landing() {
           <p>Réinventez votre expérience informatique</p>
 
           <h2>Explorez dès maintenant!</h2>
-          <Link to="/shop/all"><button className="button-ani">Shop</button></Link>
+          <ActiveLink to="/shop/all"><button className="button-ani">Shop</button></ActiveLink>
           
         </div>
       </div>

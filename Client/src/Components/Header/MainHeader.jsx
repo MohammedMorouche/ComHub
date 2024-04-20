@@ -16,15 +16,15 @@ const MainHeader =()=>{
     };
     return(
         <div className="header">
-        <div className="container">
+        <div className="container">  
           <nav>
             <ul>
               <li>
-              <ScrollToTop to="/">Acceuil</ScrollToTop>
+              <ActiveLink to="/">Acceuil</ActiveLink>
                 
               </li>
               <li>
-                <ScrollToTop to="/shop/all">Shop</ScrollToTop>
+                <ActiveLink to="/shop/all">Shop</ActiveLink>
               </li>
               <li
                 onMouseEnter={handleMouseEnter}
@@ -37,27 +37,27 @@ const MainHeader =()=>{
                 {isHovered && (
                   <ul className="dropdown-menu">
                     <li>
-                      <ScrollToTop to="/shop/laptops">Laptops</ScrollToTop>
+                      <ActiveLink to="/shop/laptops">Laptops</ActiveLink>
                       
                     </li>
                     <li>
-                      <ScrollToTop to="/shop/composants">Composants</ScrollToTop>
+                      <ActiveLink to="/shop/composants">Composants</ActiveLink>
                     </li>
                     <li>
-                      <ScrollToTop to="/shop/peripheriques">Périphériques</ScrollToTop>
+                      <ActiveLink to="/shop/peripheriques">Périphériques</ActiveLink>
                     </li>
                     <li>
-                      <ScrollToTop to="/shop/accesoires">Accessoires</ScrollToTop>
+                      <ActiveLink to="/shop/accesoires">Accessoires</ActiveLink>
                     </li>
                   </ul>
                 )}
               </li>
               <li>
-                <ScrollToTop to="/apropos">À propos</ScrollToTop>
+                <ActiveLink to="/apropos">À propos</ActiveLink>
                 
               </li>
               <li>
-                <ScrollToTop to="/contact">Contact</ScrollToTop>
+                <ActiveLink to="/contact">Contact</ActiveLink>
           
               </li>
             </ul>
