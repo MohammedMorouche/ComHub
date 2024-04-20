@@ -63,7 +63,9 @@ function clients(){
 
     return (
         <div>
-            <Typography.Title level={3}>table clients</Typography.Title>
+             <div className="dash1-container">
+        <div className="dash1">Clients</div>
+      </div>
             
             <div className='search'>
                 <input type="text" placeholder='Search...' onChange={handleFilter} />

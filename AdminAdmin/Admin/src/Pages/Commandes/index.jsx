@@ -8,20 +8,20 @@ function Commandes(){
         {name:'Produit',selector : row=>row.Produit},
         {name:'Date',selector : row=>row.Date},
         {name:'Prix Total',selector : row=>row.Prix},
-        {name: 'Etat de laivraison',selector:row=>row.laiv}
+        {name: 'Etat de laivraison',selector:row=>row.laiv},
+        {name: 'laivrais?',selector:row=>row.laivr}
     ];
 
 
 
 
     const data=[
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'},
-        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours'}
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"},
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"},
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"},
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"},
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"},
+        {Client:'Abdessamad',Produit : 'PC',Date:'15/03/2024',Prix:'80000 DA',laiv:'en cours',laivr: "oui/non"}
 
     ]
 
@@ -62,9 +62,12 @@ function Commandes(){
 
 
     return (
-        <div>
-            <Typography.Title >commandes</Typography.Title>
-            <div className='ClientStyle'>
+        <>
+             <div className="dash1-container">
+        <div className="dash1">Commandes</div>
+      </div>
+     <div>
+            <div className='tablestyle'>
 
    
 <DataTable
@@ -81,7 +84,7 @@ highlightOnHover
    />
 
   </div>
-
+  
 
 
 
@@ -89,6 +92,7 @@ highlightOnHover
 
 
         </div>
+        </>
     );
 }
 export default Commandes
