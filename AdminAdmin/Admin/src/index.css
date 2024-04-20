@@ -6,6 +6,7 @@
   height: 100vh;
 }
 .AppHeader{
+  background-color: #0c0527;
   position: relative;
   height: 50px;
   display: flex;
@@ -23,13 +24,21 @@ border-top: 1px solid rgba(0, 0, 0, 0.15);
 
 }
 .sidebarandpage{
-  display: flex;
+ /* background-color: rgb(45, 58, 58);*/
+ /*background-image: linear-gradient(90deg, rgb(62, 25, 113),rgb(72, 105, 206));*/
+  
+ display: flex;
     flex: 1;
     justify-content: flex-start;
     align-items: flex-start;
 
+    background-color: #202081;
+    opacity: 0.9;
+    background-image: radial-gradient(#2d36e6 0.5px, #202081 0.5px);
+    background-size: 10px 10px;
 }
 .Sidebar{
+  
   height: 100%;
 }
 .AppContent{
@@ -81,43 +90,66 @@ border-top: 1px solid rgba(0, 0, 0, 0.15);
 .dash1-container {
   margin-bottom: 20px;
   margin-top: 30px;
-  background : lightcyan;
-  padding: 0.01%; /* Add padding to contain the background color within the container */
 }
 
 .cards-container {
   margin-bottom: 20px; /* Adjust the value as needed */
 }
 
-  .dash1 {
-    font-family: 'Source Sans Pro', sans-serif;
-    padding-left: 10px;
-    border : 1px solid black;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
-    font-size: 30px;
-    font-weight: 600;
-    /*background-image: linear-gradient(to left, #553c9a, #b393d3);*/
-    color: teal;
-    background-clip: text;
-    -webkit-background-clip: text;
-        text-align: left;
-  }
-  .AppHeader .logostyle{
+.dash1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 12px;
+  box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+  font-size: 30px;
+  font-weight: 600;
+  color: teal;
+  text-align: left;
+  background: lightcyan; /* Move background color here */
+}
 
+  .AppHeader .logostyle {
     position: relative; /* Add this line to make the image positioned */
     z-index: 1;
     max-width: 10%;
     height: auto;
     border-radius: 40%;
     margin-bottom: 10px;
+    margin-top: 20px; /* Add this line to move the logo down */
   }
   .AppHeader .titlestyle{
 
+    color: azure;
     font-family: 'Source Sans Pro', sans-serif;
     position: absolute;
     left: 100px;
-    top: 6%; /* Adjusted from 50% to 30% */
+    top: 10%; /* Adjusted from 50% to 30% */
     transform: translateY(-50%); /* Still needed for vertical centering */
     z-index: 0;
   }
+
+  /* Change the background color of the sidebar */
+.Sidebar .ant-menu {
+  background-color: #040110; /* Replace with your desired color */
+}
+
+/* Change the text color of the menu items */
+.Sidebar .ant-menu-item-selected,
+.Sidebar .ant-menu-item {
+  color: teal; /* Replace with your desired color */
+}
+
+/* Change the hover color of the menu items */
+.Sidebar .ant-menu-item:hover {
+  background-color: #286c82; /* Replace with your desired color */
+  color: #961330; /* Replace with your desired color */
+}
+
+/* Change the color of the icons */
+.Sidebar .ant-menu-item-icon {
+  color: #c6d51c; /* Replace with your desired color */
+}
+
+
+
