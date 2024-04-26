@@ -28,6 +28,17 @@ function Sidebar(){
                 key:'/Produits'
             },
             {
+                label:" AddProduits",
+                icon :<ShopOutlined/>,
+                key:'/AddProduits'
+
+            },
+            {
+                label:" UpdateProduits",
+                icon :<ShopOutlined/>,
+                key:'/UpdateAddProduits'
+            },
+            {
                 label:"Clients",
                 icon:<UserOutlined />,
                 key:'/Clients'
