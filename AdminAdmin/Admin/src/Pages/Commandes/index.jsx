@@ -7,7 +7,7 @@ import { collection, getDocs } from "firebase/firestore"
 
 function Commandes() {
   const [data, setData] = useState([]);
-  const commandesCollectionRef = collection(db, "Commandes"); // Replace "Commandes" with your actual collection name
+  const commandesCollectionRef = collection(db, "Commande"); // Replace "Commandes" with your actual collection name
 
   useEffect(() => {
     const fetchCommandes = async () => {
@@ -15,7 +15,7 @@ function Commandes() {
       const commandesData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-        laivr: false, // Initialize the laivr field with false
+        laivr: doc.data().laivr || false, // Initialize the laivr field with false
       }));
       setData(commandesData);
     };
@@ -38,15 +38,30 @@ function Commandes() {
     },
   ];
 
-  const handleDeliveryValidation = (row) => {
+  const handleDeliveryValidation = async (row) => {
     const updatedData = data.map((item) => {
-      if (item.id === row.id) {
-        return { ...item, laivr: !item.laivr };
-      }
-      return item;
+        if (item.id === row.id) {
+            
+            return { ...item, laivr: !item.laivr };
+        }
+        return item;
     });
     setData(updatedData);
-  };
+
+    try {
+        // Update database
+        const docRef = doc(db, "Commande", row.id);
+        await updateDoc(docRef, {
+            laivr: !row.laivr,
+        });
+        
+        console.log("Document successfully updated!");
+    } catch (error) {
+        console.error("Error updating document: ", error);
+        // Handle error
+    }
+};
+
 
   const customStyles = {
     headRow: {

@@ -1,18 +1,19 @@
-import { Space, Typography } from "antd";
-import DataTable from 'react-data-table-component';
 import { useState, useEffect } from "react";
-import { db } from "../../firebase-config"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase-config";
+import DataTable from 'react-data-table-component';
 
-function clients() {
+function Clients() {
   const [users, setUsers] = useState([]);
+  const [records, setRecords] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      
+      const userData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setUsers(userData);
+      setRecords(userData);
     }
     getUsers()
   }, [])
@@ -54,11 +55,11 @@ function clients() {
   };
 
   function handleFilter(event) {
+    const inputValue = event.target.value.toLowerCase();
     const newData = users.filter(row => {
-      const rowValues = `${row.FullName} ${row.Email}`.toLowerCase();
-      return rowValues.includes(event.target.value.toLowerCase());
+        return row.FullName.toLowerCase().includes(inputValue);
     });
-    setUsers(newData);
+    setRecords(newData);
   }
 
   return (
@@ -72,7 +73,7 @@ function clients() {
       <div className='tablestyle'>
         <DataTable
           columns={columns}
-          data={users}
+          data={records}
           customStyles={customStyles}
           selectableRows
           fixedHeader
@@ -85,4 +86,4 @@ function clients() {
   );
 }
 
-export default clients
+export default Clients;
