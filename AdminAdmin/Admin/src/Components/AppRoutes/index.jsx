@@ -1,4 +1,3 @@
-
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Dashboard from "../../Pages/Dashboard"
 import Produits from "../../Pages/Produits"
@@ -24,4 +23,4 @@ function AppRoutes(){
     );
 
 }
-export default AppRoutes
+export default AppRoutes 
