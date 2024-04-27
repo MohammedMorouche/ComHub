@@ -1,92 +1,88 @@
 import { Space, Typography } from "antd";
 import DataTable from 'react-data-table-component';
-import { useState } from "react";
-function clients(){
-    const columns = [
-        { name: 'Id', selector: row => row.Id, sortable: true },
-        { name: 'User name', selector: row => row.name, sortable: true },
-        { name: 'Email address', selector: row => row.Email, sortable: true },
-        { name: 'Adresse', selector: row => row.adrs, sortable: true },
-        { name: 'Numero' , selector : row => row.num}
-    ];
+import { useState, useEffect } from "react";
+import { db } from "../../firebase-config"
+import { collection, getDocs } from "firebase/firestore"
 
-    const data = [
-        { Id: 1, name: 'abdessamad', Email: 'abdessama@gmail.com', adrs: 'Tlemcen',num:'9487462782'},
-        { Id: 2, name: 'Mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen',num:'9487462782'},
-        { Id: 3, name: 'mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen',num:'9487462782' },
-        { Id: 4, name: 'mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen' ,num:'9487462782'},
-        { Id: 5, name: 'mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen' ,num:'9487462782'},
-        { Id: 6, name: 'mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen' ,num:'9487462782'},
-        { Id: 7, name: 'mohamed', Email: 'abdessama@gmail.com', adrs: 'Tlemcen' ,num:'9487462782'}
-    ];
+function clients() {
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
 
-    const customStyles = {
-        headRow: {
-            style: {
-                
-                background: 'lightcyan', 
-                 color : 'Black'
-            }
-        },
-        headCells: {
-            style: {
-                color: 'black',
-                fontsize : '16px',
-                fontWeight : '600'
-            }
-        },
-        rows: {
-            style: {
-                background :'skyblue',
-                fontsize : '16px',
-                minHeight: '56px', 
-                
-                
-                
-            }
-        },
-        Cells :{
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      
+    }
+    getUsers()
+  }, [])
 
-            style :{
-                fontsize : '16px'
-            }
-        }
-    };
-    const [records, setRecords] = useState(data);
-    function handleFilter (event) {
-        const newData = records.filter(row => {
-             return row.name.toLowerCase().includes(event.target.value.toLowerCase())})
-        setRecords(newData);
+  const columns = [
+    { name: 'Id', selector: row => row.id, sortable: true },
+    { name: 'User Name', selector: row => row.FullName, sortable: true },
+    { name: 'Email Address', selector: row => row.Email, sortable: true },
+    { name: 'Address', selector: row => row.Adresse, sortable: true },
+    { name: 'Phone Number', selector: row => row.Telephone, sortable: true }
+  ];
 
+  const customStyles = {
+    headRow: {
+      style: {
+        background: 'lightcyan',
+        color: 'Black'
+      }
+    },
+    headCells: {
+      style: {
+        color: 'black',
+        fontsize: '16px',
+        fontWeight: '600'
+      }
+    },
+    rows: {
+      style: {
+        background: 'skyblue',
+        fontsize: '16px',
+        minHeight: '56px',
+      }
+    },
+    Cells: {
+      style: {
+        fontsize: '16px'
+      }
+    }
+  };
 
-    };
+  function handleFilter(event) {
+    const newData = users.filter(row => {
+      const rowValues = `${row.FullName} ${row.Email}`.toLowerCase();
+      return rowValues.includes(event.target.value.toLowerCase());
+    });
+    setUsers(newData);
+  }
 
-    return (
-        <div>
-             <div className="dash1-container">
+  return (
+    <div>
+      <div className="dash1-container">
         <div className="dash1">Clients</div>
       </div>
-                  
-            <div className='search'>
-                <input type="text" placeholder='Search...' onChange={handleFilter} />
-            </div>
-            
-            
-            <div className='tablestyle'>
-            <DataTable
-                columns={columns}
-                data={records}
-                customStyles={customStyles}
-                selectableRows
-                fixedHeader
-                /*pagination*/
-                selectableRowsHighlight
-                highlightOnHover
-
-            />
-        </div>
-
-        </div>
-    );
+      <div className='search'>
+        <input type="text" placeholder='Search...' onChange={handleFilter} />
+      </div>
+      <div className='tablestyle'>
+        <DataTable
+          columns={columns}
+          data={users}
+          customStyles={customStyles}
+          selectableRows
+          fixedHeader
+          /*pagination*/
+          selectableRowsHighlight
+          highlightOnHover
+        />
+      </div>
+    </div>
+  );
 }
+
 export default clients

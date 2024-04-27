@@ -1,5 +1,6 @@
 
 .App{
+  background-size: cover;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -16,6 +17,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 .AppFooter{
+  background-color: #0c0527;
 height: 50px;
 display: flex;
 justify-content: space-evenly;
@@ -30,15 +32,16 @@ border-top: 1px solid rgba(0, 0, 0, 0.15);
  display: flex;
     flex: 1;
     justify-content: flex-start;
+    
     align-items: flex-start;
 
     background-color: #202081;
     opacity: 0.9;
     background-image: radial-gradient(#2d36e6 0.5px, #202081 0.5px);
-    background-size: 10px 10px;
+    
 }
 .Sidebar{
-  
+  border-radius: 10px;
   height: 100%;
 }
 .AppContent{
@@ -131,7 +134,7 @@ border-top: 1px solid rgba(0, 0, 0, 0.15);
 
   /* Change the background color of the sidebar */
 .Sidebar .ant-menu {
-  background-color: #040110; /* Replace with your desired color */
+  background-color: #0c0527;/* Replace with your desired color */
 }
 
 /* Change the text color of the menu items */

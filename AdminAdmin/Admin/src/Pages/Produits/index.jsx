@@ -77,7 +77,7 @@ function Produits(){
                 <td><img src={product.photo} alt={product.name} width="50" /></td>
                 <td>
                   <span onClick={() => handleDelete(product.id)} style={{ cursor: 'pointer', marginRight: '8px' }}><FaTrash /></span>
-                  <Link to={`/UpdateProduct/${product.id}`}><span style={{ marginRight: '8px' }}><FaEdit /></span></Link>
+                  <Link to={`/modifier/${product.id}`}><span style={{ marginRight: '8px' }}><FaEdit /></span></Link>
                 </td>
               </tr>
             ))}

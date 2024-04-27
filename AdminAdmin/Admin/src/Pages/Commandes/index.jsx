@@ -1,23 +1,33 @@
 import { Typography, Button } from "antd";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { db } from "../../firebase-config"
+import { collection, getDocs } from "firebase/firestore"
+
 
 function Commandes() {
-  const [data, setData] = useState([
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-    { Client: "Abdessamad", Produit: "PC", Date: "15/03/2024", Prix: "80000 DA", laiv: "en cours", laivr: false },
-  ]);
+  const [data, setData] = useState([]);
+  const commandesCollectionRef = collection(db, "Commandes"); // Replace "Commandes" with your actual collection name
+
+  useEffect(() => {
+    const fetchCommandes = async () => {
+      const data = await getDocs(commandesCollectionRef);
+      const commandesData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        laivr: false, // Initialize the laivr field with false
+      }));
+      setData(commandesData);
+    };
+    fetchCommandes();
+  }, []);
 
   const columns = [
-    { name: "Client", selector: (row) => row.Client },
+    { name: "Client", selector: (row) => row.User },
     { name: "Produit", selector: (row) => row.Produit },
-    { name: "Date", selector: (row) => row.Date },
-    { name: "Prix Total", selector: (row) => row.Prix },
-    { name: "Etat de laivraison", selector: (row) => row.laiv },
+    { name: "Date", selector: (row) => new Date(row.Date?.toDate()).toLocaleDateString() }, // Format the date
+    { name: "Prix Total", selector: (row) => row["Prix total"] },
+    { name: "Etat de laivraison", selector: (row) => (row.laivr ? "livrée" : "en cours") },
     {
       name: "Valider la livraison",
       cell: (row) => (
@@ -30,8 +40,8 @@ function Commandes() {
 
   const handleDeliveryValidation = (row) => {
     const updatedData = data.map((item) => {
-      if (item === row) {
-        return { ...item, laivr: !item.laivr, laiv: item.laivr ? "en cours" : "livrée" };
+      if (item.id === row.id) {
+        return { ...item, laivr: !item.laivr };
       }
       return item;
     });
@@ -79,7 +89,7 @@ function Commandes() {
             customStyles={customStyles}
             selectableRows
             fixedHeader
-            pagination
+            /*pagination*/
             selectableRowsHighlight
             highlightOnHover
           />

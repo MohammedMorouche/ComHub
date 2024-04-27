@@ -34,11 +34,6 @@ function Sidebar(){
 
             },
             {
-                label:" UpdateProduits",
-                icon :<ShopOutlined/>,
-                key:'/UpdateAddProduits'
-            },
-            {
                 label:"Clients",
                 icon:<UserOutlined />,
                 key:'/Clients'

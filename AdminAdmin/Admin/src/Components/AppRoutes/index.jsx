@@ -1,3 +1,4 @@
+
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Dashboard from "../../Pages/Dashboard"
 import Produits from "../../Pages/Produits"
@@ -14,7 +15,7 @@ function AppRoutes(){
              <Route path="/" element={<Dashboard />}></Route>
              <Route path="/Produits" element={<Produits/>}></Route>
              <Route path="/AddProduits" element={<AddProduct/>}></Route>
-             <Route path="/UpdateProduct" element={<UpdateProduct/>}></Route>             
+             <Route path="/modifier/:id" element={<UpdateProduct />} /> {}
              <Route path="/Clients" element={<Clients/>}></Route>
              <Route path="/Commandes" element={<Commandes/>}></Route>
         </Routes>
@@ -23,4 +24,4 @@ function AppRoutes(){
     );
 
 }
-export default AppRoutes 
+export default AppRoutes
