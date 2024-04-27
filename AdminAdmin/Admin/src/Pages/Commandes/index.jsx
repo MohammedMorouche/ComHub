@@ -2,7 +2,7 @@ import { Typography, Button } from "antd";
 import React, { useState,useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { db } from "../../firebase-config"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs,addDoc , doc, updateDoc} from "firebase/firestore"
 
 
 function Commandes() {
@@ -23,44 +23,66 @@ function Commandes() {
   }, []);
 
   const columns = [
-    { name: "Client", selector: (row) => row.User },
-    { name: "Produit", selector: (row) => row.Produit },
-    { name: "Date", selector: (row) => new Date(row.Date?.toDate()).toLocaleDateString() }, // Format the date
-    { name: "Prix Total", selector: (row) => row["Prix total"] },
-    { name: "Etat de laivraison", selector: (row) => (row.laivr ? "livrée" : "en cours") },
-    {
-      name: "Valider la livraison",
-      cell: (row) => (
-        <Button type={row.laivr ? "primary" : "default"} onClick={() => handleDeliveryValidation(row)}>
-          {row.laivr ? "Livrée" : "Valider"}
+    { name: 'Client', selector: row => row.User },
+    { name: 'Produit', selector: row => row.Produit },
+    { name: 'Date', selector: row => new Date(row.Date?.toDate()).toLocaleDateString() },
+    { name: 'Prix Total', selector: row => row['Prix total'] },
+    { 
+      name: 'Etat de laivraison', 
+      cell: row => {
+        return row.laivr ? 'laivrai' : 'en cours';
+      }
+    },
+    { 
+      name: 'Valider la livraison', 
+      cell: row => (
+        <Button 
+          type={row.laivr ? 'primary' : 'default'} 
+          onClick={() => handleDeliveryValidation(row)}
+        >
+          {row.laivr ? 'Livrée' : 'Valider'}
         </Button>
       ),
     },
   ];
+  
 
   const handleDeliveryValidation = async (row) => {
+    // If the current value is already true ("laivrai"), do nothing
+    if (row.laivr === true) {
+        return;
+    }
+
+    // Toggle the value
+    const updatedValue = !row.laivr;
+
+    // Update the document only if the current value is false
+    if (!row.laivr) {
+        const docRef = doc(db, 'Commande', row.id);
+        try {
+            // Update the laivr field of the document to updatedValue
+            await updateDoc(docRef, { laivr: updatedValue });
+            console.log('Document updated successfully');
+        } catch (error) {
+            console.error('Error updating document:', error);
+            return;
+        }
+    }
+
+    // Update the local state to reflect the change
     const updatedData = data.map((item) => {
         if (item.id === row.id) {
-            
-            return { ...item, laivr: !item.laivr };
+            return { ...item, laivr: updatedValue };
         }
         return item;
     });
-    setData(updatedData);
 
-    try {
-        // Update database
-        const docRef = doc(db, "Commande", row.id);
-        await updateDoc(docRef, {
-            laivr: !row.laivr,
-        });
-        
-        console.log("Document successfully updated!");
-    } catch (error) {
-        console.error("Error updating document: ", error);
-        // Handle error
-    }
+    // Update the state
+    setData(updatedData);
 };
+
+
+  
 
 
   const customStyles = {
