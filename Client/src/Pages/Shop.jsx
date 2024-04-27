@@ -154,7 +154,6 @@ const Shop = () => {
 
   return (
     <>
-      <Header />
       <div className="shop-container">
         <div className="container">
           <div className="before">

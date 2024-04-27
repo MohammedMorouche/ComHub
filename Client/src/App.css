@@ -122,7 +122,7 @@ ul {
 .header .account .log-in {
   display: flex;
   justify-content: space-between;
-  width: 165px;
+  width: 175px;
 }
 .header {
   display: flex;
@@ -685,33 +685,54 @@ a:hover {
 }
 .shop-container .shop {
   display: flex;
+  justify-content: space-between;
 }
 .shop-container .shop .sidebar {
-  width: 25%;
+  width: 23%;
   height: 100vh;
-}
-.shop-container .shop .sidebar ul li {
-  height: 40px;
-  font-size: 20px;
-  padding-left: 10px;
+  /* box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 .shop-container .products-container {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 70%;
 }
+.shop-container .shop .sidebar ul li {
+  height: 40px;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #777;
+}
+.shop-container .shop .sidebar ul li:last-child {
+  border: none;
+}
+.shop-container .shop .sidebar ul {
+  margin-bottom: 20px;
+}
+
+
 .shop-container .products-container .produit {
   width: 30%;
 }
 
 .filtH3 {
-  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .filters {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 220px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .filters .parPrix h3,
 .filters .parTrier h3 {
@@ -719,6 +740,16 @@ a:hover {
 }
 .filters .parPrix {
   margin-bottom: 20px;
+}
+.filters .parPrix .parPrixContain div{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.filters .parPrix .parPrixContain div input {
+  width: 180px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 .filters .parTrier .parTrierContain div {
   margin-bottom: 10px;

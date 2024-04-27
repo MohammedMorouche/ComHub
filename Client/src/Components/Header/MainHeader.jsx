@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollToTop from "../ScrollToTop";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   faCartShopping,
   faBars,
@@ -12,18 +11,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../images/logo/ComHub_prev_ui.png";
 import ActiveLink from "../ActiveLink";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+
 const MainHeader = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const user = auth.currentUser;
+  const nav = useNavigate();
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      nav("/");
+    });
+  };
 
   // Close sidebar when route changes
   const location = useLocation();
   useEffect(() => {
-      setMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   }, [location]);
-
-
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -103,11 +109,27 @@ const MainHeader = () => {
         </button>
 
         <div className="log-in">
-          <button className="button-ani">Connexion</button>
-          <button className="button-ani">Inscription</button>
+          {!user && (
+            <>
+              <ScrollToTop to="/connexion">
+                <button className="button-ani">Connexion</button>
+              </ScrollToTop>
+              <ScrollToTop to="/inscription">
+                <button className="button-ani">Inscription</button>
+              </ScrollToTop>
+            </>
+          )}
+          {user && (
+            <button onClick={handleLogout} className="button-ani">
+              log out
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
+};
+MainHeader.propTypes = {
+  user: PropTypes.string.isRequired, // name prop is required and must be a string
 };
 export default MainHeader;
