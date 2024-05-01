@@ -11,12 +11,19 @@ import Contact from "./Pages/Contact";
 import Apropos from "./Pages/Apropos";
 import MotDePasseOublie from "./Pages/MotDePasseOublie";
 import Footer from "./Components/Footer/Footer";
+import Cart from "./Components/Cart/Cart.jsx";
+import {CartProvider , CartContext} from "./Components/Cart/CartUtils.jsx";
+import CartItem from "./Components/Cart/CartItem.jsx";
+import {useContext} from "react";
 
 
 function App() {
+  const { cartItems, removeFromCart, updateQuantity, totalPrice } = useContext(CartContext);
   return (
+    <CartProvider value={CartContext}>
     <Router>
-      <Header />
+      {/* eslint-disable-next-line no-undef */}
+        <Header/>
       <Routes>
         <Route path="/" element={<Acceuil />} />
         <Route path="/shop" element={<Shop />}>
@@ -26,9 +33,9 @@ function App() {
           <Route path="peripheriques" element={<Shop />} />
           <Route path="accesoires" element={<Shop />} />
         </Route>
+          <Route path="/cart" element={<Cart />} />
         <Route path="/apropos" element={<Apropos />} />
         <Route path="/contact" element={<Contact />} />
-
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
@@ -37,6 +44,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </CartProvider>
   );
 }
 export default App;

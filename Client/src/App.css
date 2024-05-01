@@ -158,7 +158,6 @@ ul {
   padding: 10px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  text-align: center;
 }
 .faBars {
   font-size: 30px;
@@ -206,7 +205,10 @@ ul {
     top: 60px;
     left: 50px;
     transition: height 0.3s ease;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8513897021e951b7d72c82ab84cb71f3118a76e7
     background-color: #06122f;
   }
 }

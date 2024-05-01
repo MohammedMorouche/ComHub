@@ -21,11 +21,11 @@ function Header() {
 
 // const user = GetCurrentUser();
 // console.log(user);
-  return (
-    <>
-      {/* <PreHeader /> */}
-      <MainHeader />
-    </>
-  );
+    return (
+        <>
+            <MainHeader />
+        </>
+    );
 }
+
 export default Header;
