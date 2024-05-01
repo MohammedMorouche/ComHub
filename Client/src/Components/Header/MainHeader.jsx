@@ -1,24 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ScrollToTop from "../ScrollToTop";
-import PropTypes from "prop-types";
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  faCartShopping,
-  faBars,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../images/logo/ComHub_prev_ui.png";
 import ActiveLink from "../ActiveLink";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
+import Cart from "../Cart/Cart.jsx";
+import {CartContext}  from "../Cart/CartUtils.jsx";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import {FaCartFlatbedSuitcase} from "react-icons/fa6";
 
+const CartLink = styled(Link)`
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    &:hover {
+        color: #ccc;
+    }
+`;
 const MainHeader = () => {
+  const { cartItems, removeFromCart, updateQuantity, totalPrice } = useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = auth.currentUser;
   const nav = useNavigate();
+
   const handleLogout = () => {
     signOut(auth).then(() => {
       nav("/");
@@ -38,10 +49,10 @@ const MainHeader = () => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
   const handleToggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-
   return (
     <div className="header">
       <div className="mobile-menu">
@@ -104,10 +115,10 @@ const MainHeader = () => {
       </div>
 
       <div className="account">
-        <button className="cart">
-          <FontAwesomeIcon icon={faCartShopping} className="faCartShopping" />
-        </button>
-
+        <CartLink to='/Cart'>
+          <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
+        </CartLink>
+        {/*<Cart cartItems={cartItems} totalPrice={totalPrice} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />*/}
         <div className="log-in">
           {!user && (
             <>
@@ -129,7 +140,12 @@ const MainHeader = () => {
     </div>
   );
 };
-MainHeader.propTypes = {
-  user: PropTypes.string.isRequired, // name prop is required and must be a string
-};
+  MainHeader.propTypes = {
+    user: PropTypes.string.isRequired,
+    cartItems: PropTypes.array.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    addToCart: PropTypes.func.isRequired,
+    removeFromCart: PropTypes.func.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
+  };
 export default MainHeader;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import Produit from "../Components/Hero/Produit";
 import image1 from "../images/produits/img1.jpg";
 import image2 from "../images/produits/img2.jpg";
@@ -8,7 +8,8 @@ import ActiveLink from "../Components/ActiveLink";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Header from "../Components/Header/Header";
+import {CartContext} from "../Components/Cart/CartUtils.jsx";
+// eslint-disable-next-line react/prop-types
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -17,6 +18,7 @@ const Shop = () => {
   const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { pathname } = useLocation();
+  const {addToCart} = useContext(CartContext);
   useEffect(() => {
     // Generate random product data
     const randomProducts = [
@@ -188,32 +190,32 @@ const Shop = () => {
                 </li>
                 <li>
                   <ActiveLink
-                    onClick={() => handleFilterChange("laptops")}
-                    to="/shop/laptops"
+                      onClick={() => handleFilterChange("laptops")}
+                      to="/shop/laptops"
                   >
                     Laptops
                   </ActiveLink>
                 </li>
                 <li>
                   <ActiveLink
-                    onClick={() => handleFilterChange("composants")}
-                    to="/shop/composants"
+                      onClick={() => handleFilterChange("composants")}
+                      to="/shop/composants"
                   >
                     Composants
                   </ActiveLink>
                 </li>
                 <li>
                   <ActiveLink
-                    onClick={() => handleFilterChange("peripheriques")}
-                    to="/shop/peripheriques"
+                      onClick={() => handleFilterChange("peripheriques")}
+                      to="/shop/peripheriques"
                   >
                     Périphériques
                   </ActiveLink>
                 </li>
                 <li>
                   <ActiveLink
-                    onClick={() => handleFilterChange("accesoires")}
-                    to="/shop/accesoires"
+                      onClick={() => handleFilterChange("accesoires")}
+                      to="/shop/accesoires"
                   >
                     Accessoires
                   </ActiveLink>
@@ -227,32 +229,33 @@ const Shop = () => {
                     <div>
                       <label htmlFor="min-price">Min:</label>
                       <input
-                        type="number"
-                        id="min-price"
-                        value={priceFilter.min}
-                        onChange={(e) =>
-                          handlePriceFilterChange(
-                            e.target.value,
-                            priceFilter.max
-                          )
-                        }
+                          type="number"
+                          id="min-price"
+                          value={priceFilter.min}
+                          onChange={(e) =>
+                              handlePriceFilterChange(
+                                  e.target.value,
+                                  priceFilter.max
+                              )
+                          }
                       />
                     </div>
                     <div>
                       <label htmlFor="max-price">Max:</label>
                       <input
-                        type="number"
-                        id="max-price"
-                        value={priceFilter.max}
-                        onChange={(e) =>
-                          handlePriceFilterChange(
-                            priceFilter.min,
-                            e.target.value
-                          )
-                        }
+                          type="number"
+                          id="max-price"
+                          value={priceFilter.max}
+                          onChange={(e) =>
+                              handlePriceFilterChange(
+                                  priceFilter.min,
+                                  e.target.value
+                              )
+                          }
                       />
                     </div>
-                    <button onClick={handleReset}>Reset</button>{" "}
+                    <button onClick={handleReset}>Reset</button>
+                    {" "}
                     {/* Reset button */}
                   </div>
                 </div>
@@ -262,10 +265,10 @@ const Shop = () => {
                     <div>
                       <label className="radio-label ">
                         <input
-                          type="radio"
-                          name="sort-order"
-                          checked={sortOrder === "latest"}
-                          onChange={() => handleSortOrderChange("latest")}
+                            type="radio"
+                            name="sort-order"
+                            checked={sortOrder === "latest"}
+                            onChange={() => handleSortOrderChange("latest")}
                         />
                         Derniers ajoutés
                       </label>
@@ -273,10 +276,10 @@ const Shop = () => {
                     <div>
                       <label>
                         <input
-                          type="radio"
-                          name="sort-order"
-                          checked={sortOrder === "asc"}
-                          onChange={() => handleSortOrderChange("asc")}
+                            type="radio"
+                            name="sort-order"
+                            checked={sortOrder === "asc"}
+                            onChange={() => handleSortOrderChange("asc")}
                         />
                         Prix croissant
                       </label>
@@ -284,10 +287,10 @@ const Shop = () => {
                     <div>
                       <label>
                         <input
-                          type="radio"
-                          name="sort-order"
-                          checked={sortOrder === "desc"}
-                          onChange={() => handleSortOrderChange("desc")}
+                            type="radio"
+                            name="sort-order"
+                            checked={sortOrder === "desc"}
+                            onChange={() => handleSortOrderChange("desc")}
                         />
                         Prix décroissant
                       </label>
@@ -298,12 +301,13 @@ const Shop = () => {
             </div>
             <div className="products-container">
               {filteredProducts.map((product) => (
-                <Produit
-                  key={product.id}
-                  imgSrc={product.imgSrc}
-                  titreProduit={product.titreProduit}
-                  prixProduit={product.prixProduit}
-                />
+                  <Produit
+                      key={product.id}
+                      imgSrc={product.imgSrc}
+                      titreProduit={product.titreProduit}
+                      prixProduit={product.prixProduit}
+                      addToCart={addToCart} // Passing the addToCart function as a prop
+                  />
               ))}
             </div>
           </div>

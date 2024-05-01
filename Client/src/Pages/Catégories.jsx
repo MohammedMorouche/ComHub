@@ -1,5 +1,3 @@
-
-
 const Catégories = () => {
   return (
     <>
