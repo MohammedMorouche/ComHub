@@ -7,38 +7,24 @@ import { useContext } from "react";
 import { CartContext } from "../Cart/CartUtils.jsx";
 
 const Produit = ({ imgSrc, titreProduit, prixProduit }) => {
-<<<<<<< HEAD
-  // const user = auth.currentUser;
-  const [user, setUser] = useState(auth.currentUser); // State to store the current user
+ // const user = auth.currentUser;
+ const [user, setUser] = useState(auth.currentUser); // State to store the current user
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser); // Update the user state when the authentication state changes
-    });
+ useEffect(() => {
+   const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+     setUser(currentUser); // Update the user state when the authentication state changes
+   });
 
-    // Clean up the listener when the component unmounts
-    return () => {
-      unsubscribe();
-    };
-  }, []); // useEffect runs only once on component mount
-
-  return (
-    <div className="produit">
-      <ScrollToTop to={user ? "/shop/" : "/connexion"}>
-        <img src={imgSrc} alt="" />
-        <h4 className="titreDeProduit">{titreProduit}</h4>
-        <h5 className="PrixDeProduit">{prixProduit} DA</h5>
-        <button className="button-ani">Ajouter au panier</button>
-      </ScrollToTop>
-    </div>
-=======
+   // Clean up the listener when the component unmounts
+   return () => {
+     unsubscribe();
+   };
+ }, []); // useEffect runs only once on component mount
   const { addToCart } = useContext(CartContext);
-  const user = auth.currentUser;
-  const linkToProductPage = user ? "/shop" : "/connexion";
   const product = { id: Math.random(), imgSrc, titreProduit, prixProduit };
   return (
       <div className="produit">
-        <ScrollToTop to={linkToProductPage}>
+        <ScrollToTop to={user ? "/shop/" : "/connexion"}>
           <img src={imgSrc} alt="" />
           <h4 className="titreDeProduit">{titreProduit}</h4>
           <h5 className="PrixDeProduit">{prixProduit} DA</h5>
@@ -47,7 +33,6 @@ const Produit = ({ imgSrc, titreProduit, prixProduit }) => {
           </button>
         </ScrollToTop>
       </div>
->>>>>>> 8513897021e951b7d72c82ab84cb71f3118a76e7
   );
 };
 

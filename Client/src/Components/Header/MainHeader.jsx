@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useContext } from "react";
 import ScrollToTop from "../ScrollToTop";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -9,22 +9,23 @@ import ActiveLink from "../ActiveLink";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import Cart from "../Cart/Cart.jsx";
-import {CartContext}  from "../Cart/CartUtils.jsx";
+import { CartContext } from "../Cart/CartUtils.jsx";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import {FaCartFlatbedSuitcase} from "react-icons/fa6";
+import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 
 const CartLink = styled(Link)`
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    &:hover {
-        color: #ccc;
-    }
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: #ccc;
+  }
 `;
 const MainHeader = () => {
-  const { cartItems, removeFromCart, updateQuantity, totalPrice } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity, totalPrice } =
+    useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = auth.currentUser;
@@ -115,13 +116,7 @@ const MainHeader = () => {
       </div>
 
       <div className="account">
-<<<<<<< HEAD
-=======
-        <CartLink to='/Cart'>
-          <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
-        </CartLink>
         {/*<Cart cartItems={cartItems} totalPrice={totalPrice} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />*/}
->>>>>>> 8513897021e951b7d72c82ab84cb71f3118a76e7
         <div className="log-in">
           {!user && (
             <>
@@ -136,10 +131,9 @@ const MainHeader = () => {
           {user && (
             <>
               <button className="cart">
-                <FontAwesomeIcon
-                  icon={faCartShopping}
-                  className="faCartShopping"
-                />
+                <CartLink to="/Cart">
+                  <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
+                </CartLink>
               </button>
               <button onClick={handleLogout} className="button-ani">
                 Déconnexion
@@ -151,12 +145,12 @@ const MainHeader = () => {
     </div>
   );
 };
-  MainHeader.propTypes = {
-    user: PropTypes.string.isRequired,
-    cartItems: PropTypes.array.isRequired,
-    totalPrice: PropTypes.number.isRequired,
-    addToCart: PropTypes.func.isRequired,
-    removeFromCart: PropTypes.func.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
-  };
+MainHeader.propTypes = {
+  user: PropTypes.string.isRequired,
+  cartItems: PropTypes.array.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  updateQuantity: PropTypes.func.isRequired,
+};
 export default MainHeader;

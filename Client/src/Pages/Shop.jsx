@@ -7,7 +7,7 @@ import image4 from "../images/produits/img4.jpg";
 import ActiveLink from "../Components/ActiveLink";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
+
 import {
   faMagnifyingGlass,
   faFilter,
@@ -16,11 +16,8 @@ import {
 import { auth } from "../firebase.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-=======
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {CartContext} from "../Components/Cart/CartUtils.jsx";
-// eslint-disable-next-line react/prop-types
->>>>>>> 8513897021e951b7d72c82ab84cb71f3118a76e7
+
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -29,13 +26,13 @@ const Shop = () => {
   const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { pathname } = useLocation();
-<<<<<<< HEAD
+
   const [user] = useAuthState(auth);
   // const user = auth.currentUser;
   const navigate = useNavigate();
-=======
+
   const {addToCart} = useContext(CartContext);
->>>>>>> 8513897021e951b7d72c82ab84cb71f3118a76e7
+
   useEffect(() => {
     if (!user) {
       navigate("/Connexion");
