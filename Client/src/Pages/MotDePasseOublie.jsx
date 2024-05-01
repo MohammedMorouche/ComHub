@@ -18,7 +18,7 @@ function MotDePasseOublie() {
           setMsg("");
           // history.push('/');
           navige("/connexion");
-        }, 3000);
+        }, 1000);
       })
       .catch((error) => {
         const errorCode = error.code;

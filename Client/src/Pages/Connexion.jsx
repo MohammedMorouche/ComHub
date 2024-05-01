@@ -5,13 +5,12 @@ import { useContext, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 // import {useHistory} from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../firebase";
+import { auth } from "../firebase";
 function Connexion() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const history = useHistory();
   const navitage = useNavigate();
 
   const handleLogin = (e) => {
@@ -30,10 +29,16 @@ function Connexion() {
           setSuccess("");
           // history.push('/');
           navitage("/");
-        }, 3000);
+        }, 1000);
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        // corrected this line: added parentheses around 'error'
+        setEmail("");
+        setPassword("");
+        setError("email ou mot de passe incorrecte");
+      });
   };
+
   return (
     <div className="auth-container">
       <div className="container">

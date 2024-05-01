@@ -8,7 +8,7 @@ function Inscription() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [telephone, setTelephone] = useState("");
+  const [telephone, setTelephone] = useState();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,9 +26,10 @@ function Inscription() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-
+        const userId = user.uid;
         // Update user profile with full name
         return addDoc(collection(fs, "users"), {
+          id: userId,
           FullName: fullName,
           Telephone: telephone,
           Email: email,
@@ -42,14 +43,14 @@ function Inscription() {
         setFullName("");
         setEmail("");
         setPassword("");
-        setTelephone("");
+        setTelephone();
         setError("");
         setPassword("");
         setConfirmPassword("");
         setTimeout(() => {
           setSuccess("");
           nav("/connexion");
-        }, 3000);
+        }, 1000);
       })
       .catch((error) => {
         setError(error.message);

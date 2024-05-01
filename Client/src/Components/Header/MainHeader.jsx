@@ -104,10 +104,6 @@ const MainHeader = () => {
       </div>
 
       <div className="account">
-        <button className="cart">
-          <FontAwesomeIcon icon={faCartShopping} className="faCartShopping" />
-        </button>
-
         <div className="log-in">
           {!user && (
             <>
@@ -120,9 +116,17 @@ const MainHeader = () => {
             </>
           )}
           {user && (
-            <button onClick={handleLogout} className="button-ani">
-              log out
-            </button>
+            <>
+              <button className="cart">
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  className="faCartShopping"
+                />
+              </button>
+              <button onClick={handleLogout} className="button-ani">
+                Déconnexion
+              </button>
+            </>
           )}
         </div>
       </div>

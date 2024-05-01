@@ -7,8 +7,14 @@ import image4 from "../images/produits/img4.jpg";
 import ActiveLink from "../Components/ActiveLink";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Header from "../Components/Header/Header";
+import {
+  faMagnifyingGlass,
+  faFilter,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { auth } from "../firebase.jsx";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -17,7 +23,13 @@ const Shop = () => {
   const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { pathname } = useLocation();
+  const [user] = useAuthState(auth);
+  // const user = auth.currentUser;
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!user) {
+      navigate("/Connexion");
+    }
     // Generate random product data
     const randomProducts = [
       {
@@ -147,13 +159,29 @@ const Shop = () => {
   const handleReset = () => {
     // Reset the price filter to default values
     setPriceFilter({ min: 0, max: Infinity });
+    setIsFilterOpen(false);
   };
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const handleToggleFilter = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+  const handlefix = () => {
+    setIsFilterOpen(false);
+  };
+  const location = useLocation();
+  useEffect(() => {
+    setIsFilterOpen(false);
+  }, [location]);
 
   return (
     <>
+      <div className={`fax ${isFilterOpen ? "fixa" : ""}`} onClick={handlefix}>
+        <FontAwesomeIcon icon={faXmark} />
+      </div>
+
       <div className="shop-container">
         <div className="container">
           <div className="before">
@@ -177,9 +205,13 @@ const Shop = () => {
                 onChange={handleSearch}
               />
             </div>
+            <div className="filtrer" onClick={handleToggleFilter}>
+              <FontAwesomeIcon icon={faFilter} />
+              <strong>Filtrer</strong>
+            </div>
           </div>
           <div className="shop">
-            <div className="sidebar">
+            <div className={`${isFilterOpen ? "open" : "sidebar"}`}>
               <ul>
                 <li>
                   <a href="" onClick={() => handleFilterChange("all")}>
