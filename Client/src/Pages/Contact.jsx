@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const Contact = () => {
   useEffect(() => {
     const iframe = document.createElement("iframe");
-    iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26185.58720890866!2d-1.3304137154010431!3d34.87636393382952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd78c852fa7f18ef%3A0xe816b7839010cd91!2sClinque%20les%20Dahlias!5e0!3m2!1sfr!2sdz!4v1714260318065!5m2!1sfr!2sdz"; // Replace with the actual embed code
+    iframe.src = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13091.557871062272!2d-1.3139166!3d34.8841218!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd78c9038d4e4bbb%3A0x71430e7e6e7041eb!2sComhub!5e0!3m2!1sfr!2sdz!4v1714758542346!5m2!1sfr!2sdz"; // Replace with the actual embed code
     iframe.width = "600";
     iframe.height = "450";
     iframe.style.border = "0";

@@ -1,0 +1,10 @@
+.Sidebar .ant-menu {
+    height: 100vh; 
+    
+    width: 200px;
+}
+.ant-menu-item {
+    padding: 30px;
+    
+   
+}
