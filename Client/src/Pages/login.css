@@ -5,6 +5,20 @@
   height: calc(100vh - 60px) ;
   /* background-color: #44518d; */
 }
+form div{
+  display: flex;
+  flex-direction: column;
+  
+}
+form .cont{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+}
+form .cont div{
+  width: 48%;
+}
 .red{
   color: red;
 }
