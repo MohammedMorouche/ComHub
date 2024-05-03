@@ -120,6 +120,7 @@ function DashboardChart() {
         { userId: 1, discountedTotal: 100 },
         { userId: 2, discountedTotal: 150 },
         { userId: 3, discountedTotal: 200 },
+        { userId: 4, discountedTotal: 300 }
       ],
     };
 

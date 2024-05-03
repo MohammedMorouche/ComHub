@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { db, storage } from '../../firebase-config';
+import { doc, updateDoc } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 function UpdateProduct() {
   const [product, setProduct] = useState({
-    id: '',
     name: '',
     description: '',
     price: '',
@@ -14,53 +16,75 @@ function UpdateProduct() {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    // Ici, vous pouvez récupérer les données du produit correspondant à l'ID depuis votre source de données.
-    // Pour cet exemple, je vais juste initialiser le produit avec des valeurs factices.
-    setProduct({
-      id: id,
-      name: 'Produit 1',
-      description: 'Description produit 1',
-      price: '100',
-      category: 'pc', // "pc" au lieu de "PC" pour correspondre à la valeur de l'état
-      photo: 'https://via.placeholder.com/150',
-    });
+    const fetchProductData = async () => {
+      try {
+        // Fetch the product document from Firestore
+        const docRef = doc(db, 'products', id);
+        const docSnap = await getDoc(docRef);
+        
+        // Check if the document exists
+        if (docSnap.exists()) {
+          // If it exists, set the product state with the document data
+          const data = docSnap.data();
+          setProduct({
+            name: data.name || '',
+            description: data.description || '',
+            price: data.price || '',
+            category: data.category || '',
+            photo: data.photo || '',
+          });
+        } else {
+          console.log('No such product document!');
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+  
+    fetchProductData();
   }, [id]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
 
-  const handlePhotoUpload = (e) => {
+  const handlePhotoUpload = async (e) => {
     const file = e.target.files[0];
-    setProduct({ ...product, photo: file });
+    const storageRef = ref(storage, `photos/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    try {
+      const snapshot = await uploadTask;
+      const photoUrl = await getDownloadURL(snapshot.ref);
+      setProduct({ ...product, photo: photoUrl });
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+    }
   };
 
   const handlePhotoClick = () => {
     fileInputRef.current.click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Produit mis à jour:', product);
+    try {
+      const productRef = doc(db, 'products', id);
+      await updateDoc(productRef, product);
+      console.log('Product updated successfully:', product);
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
   };
 
   return (
     <div>
-      <h2>Mettre à jour le produit</h2>
+      <h2>Update Product</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="id">ID</label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={product.id}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="name">Nom</label>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
@@ -79,7 +103,7 @@ function UpdateProduct() {
           />
         </div>
         <div>
-          <label htmlFor="price">Prix</label>
+          <label htmlFor="price">Price</label>
           <input
             type="text"
             id="price"
@@ -89,18 +113,18 @@ function UpdateProduct() {
           />
         </div>
         <div>
-          <label htmlFor="category">Catégorie</label>
+          <label htmlFor="category">Category</label>
           <select
             id="category"
             name="category"
             value={product.category}
             onChange={handleChange}
           >
-            <option value="">Sélectionnez une catégorie</option>
+            <option value="">Select a category</option>
             <option value="pc">PC</option>
-            <option value="accessoires">Accessoires</option>
-            <option value="peripheriques">Périphériques</option>
-            <option value="composants">Composants</option>
+            <option value="accessories">Accessories</option>
+            <option value="peripherals">Peripherals</option>
+            <option value="components">Components</option>
           </select>
         </div>
         <div>
@@ -113,18 +137,13 @@ function UpdateProduct() {
             ref={fileInputRef}
           />
           <button type="button" onClick={handlePhotoClick}>
-            Importer une photo
+            Upload Photo
           </button>
           {product.photo && (
-            <p>
-              Fichier sélectionné :{' '}
-              {typeof product.photo === 'string'
-                ? product.photo
-                : product.photo.name}
-            </p>
+            <p>Selected File: {typeof product.photo === 'string' ? product.photo : product.photo.name}</p>
           )}
         </div>
-        <button type="submit">Mettre à jour le produit</button>
+        <button type="submit">Update Product</button>
       </form>
     </div>
   );

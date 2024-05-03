@@ -1,21 +1,29 @@
-import { Typography } from "antd";
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../firebase-config';
 
 function Produits(){
 
-   
-    const [products, setProducts] = useState([
-    { id: 1, name: 'Pc Lenovo', price: 50000, description: '256 G , Sdd, Fast charger', category: 'PC', photo: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Apple AirPods', price: 6000, description: 'Bon AirPods', category: 'Accessoires', photo: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Flash disque ', price: 2000, description: 'flash disque de 16 G', category: 'Accessoires', photo: 'https://via.placeholder.com/150' },
-    { id: 4, name: 'chargeur ', price: 2500, description: '65 w', category: 'Accessoires', photo: 'https://via.placeholder.com/150' },
-  ]);
-
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(3); // je peux les changer
+  const [productsPerPage] = useState(3);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products')); 
+        const productsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -25,8 +33,13 @@ function Produits(){
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = id => {
-    setProducts(products.filter(product => product.id !== id));
+  const handleDelete = async id => {
+    try {
+      await deleteDoc(doc(db, 'products', id));
+      setProducts(products.filter(product => product.id !== id));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
 
   const totalPages = Math.ceil(products.length / productsPerPage);
@@ -57,7 +70,6 @@ function Produits(){
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Nom</th>
               <th>Prix</th>
               <th>Description</th>
@@ -67,9 +79,8 @@ function Produits(){
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map(product => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
+            {filteredProducts.map((product, index) => (
+              <tr key={index}>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.description}</td>
@@ -95,6 +106,6 @@ function Produits(){
       </div>
     </div>
   );
-
 }
-export default Produits
+
+export default Produits;

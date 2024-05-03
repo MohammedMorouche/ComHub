@@ -158,37 +158,57 @@ border-top: 1px solid rgba(0, 0, 0, 0.15);
   color: #c6d51c; /* Replace with your desired color */
 }
 
-/* tableau */
+/* Tableau */
 .table-container {
-  display: flex;
-  justify-content: center;
+  margin-top: 20px;
 }
+
 table {
+  width: 100%;
   border-collapse: collapse;
-  width: 60%; /* Réduit la largeur du tableau à 50% */
-  font-size: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #ddd; /* Ajout d'une bordure autour du tableau */
+  border-radius: 0.6%;
 }
 
 th, td {
-  padding: 8px; /* Espacement interne des cellules réduit */
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  padding: 12px; /* Augmentation de la marge interne */
+  background-color: skyblue;
 }
 
 th {
+  background-color: lightcyan; /* Changement de la couleur de fond en bleu ciel */
+  font-weight: bold;
+  text-align: left;
+}
+
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-tr {
-  background-color: #f6e3ff; /* Couleur de fond pour les lignes */
+/* Pagination */
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
+.pagination-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Augmentation de la taille des boutons */
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 8px; /* Réduction de la marge entre les boutons */
 }
+
+.pagination-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
 
 /* barre de navigation */
 nav {
