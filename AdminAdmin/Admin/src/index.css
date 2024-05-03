@@ -264,13 +264,13 @@ h2 {
 input[type="text"],
 textarea,
 select {
-  width: 100%; 
-  padding: 10px; 
-  margin-bottom: 15px; /* espacement entre les champs de saisie */
-  border: 1px solid #ddd; 
-  border-radius: 4px; 
-  box-sizing: border-box; 
-  font-size: 16px; 
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 16px; /* Add some space between inputs */
 }
 
 /* les boutons */
@@ -306,6 +306,7 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;
+  margin-bottom: 16px;
 }
 
 button[type="submit"] {
@@ -317,6 +318,8 @@ button[type="submit"] {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  grid-column: 1 / span 2; /* Make the submit button span both columns */
+  justify-self: center; /* Center the submit button horizontally */
 }
 
 button[type="submit"]:hover {
@@ -387,6 +390,7 @@ h2 {
   cursor: not-allowed;
 }
 
+/* Photo input */
 #photo {
   display: none;
 }
@@ -398,10 +402,17 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-bottom: 16px;
 }
 
 .photo-label:hover {
   background-color: #53437c;
+}
+
+.selected-photo {
+  margin-bottom: 16px;
+  font-style: italic;
 }
 
 /* la barre de recherche */
@@ -426,5 +437,15 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Increase the maximum width to accommodate the two-column layout */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Create two equal columns */
+  grid-gap: 20px; /* Add some space between the columns */
+}
 

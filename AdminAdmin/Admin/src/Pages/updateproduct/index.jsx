@@ -81,7 +81,9 @@ function UpdateProduct() {
 
   return (
     <div>
-      <h2>Update Product</h2>
+      <div className="dash1-container">
+        <div className="dash1">Product Liste</div>
+      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>

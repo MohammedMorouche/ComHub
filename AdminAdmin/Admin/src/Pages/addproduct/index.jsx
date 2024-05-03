@@ -126,19 +126,20 @@ function AddProduct() {
           </select>
         </div>
         <div>
-          <label>Photo</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoUpload}
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-          />
-          <button type="button" onClick={handlePhotoClick}>
-            Importer une photo
-          </button>
-          {product.photo && <p>Fichier sélectionné : {product.photo.name}</p>}
-        </div>
+  <label>Photo</label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handlePhotoUpload}
+    style={{ display: 'none' }}
+    ref={fileInputRef}
+    id="photo"
+  />
+  <label htmlFor="photo" className="photo-label">
+    Importer une photo
+  </label>
+  {product.photo && <p className="selected-photo">Fichier sélectionné : {product.photo.name}</p>}
+</div>
         <div style={{ marginTop: '10px' }}>
           <button type="submit">Ajouter le produit</button>
         </div>
