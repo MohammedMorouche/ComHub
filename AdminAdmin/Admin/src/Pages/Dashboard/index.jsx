@@ -3,8 +3,64 @@ import { Card, Space, Statistic, Typography } from 'antd';
 import { UserOutlined, ShoppingCartOutlined, ShopOutlined } from '@ant-design/icons';
 import { Bar } from 'react-chartjs-2';
 import ChartJS from 'chart.js/auto';
+import { db } from '../../firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
+
 
 function Dashboard() {
+
+  const [userDocumentCount, setUserDocumentCount] = useState(0);
+  const [commandeDocumentCount, setCommandeDocumentCount] = useState(0);
+  const [productDocumentCount, setProductDocumentCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUserDocumentCount = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const count = querySnapshot.size;
+        setUserDocumentCount(count);
+      } catch (error) {
+        console.error('Error fetching user document count:', error);
+      }
+    };
+
+    fetchUserDocumentCount();
+  }, []);
+
+  useEffect(() => {
+    const fetchCommandeDocumentCount = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'Commande'));
+        const count = querySnapshot.size;
+        setCommandeDocumentCount(count);
+      } catch (error) {
+        console.error('Error fetching commande document count:', error);
+      }
+    };
+
+    fetchCommandeDocumentCount();
+  }, []);
+
+  useEffect(() => {
+    const fetchProductDocumentCount = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        const count = querySnapshot.size;
+        setProductDocumentCount(count);
+      } catch (error) {
+        console.error('Error fetching product document count:', error);
+      }
+    };
+
+    fetchProductDocumentCount();
+  }, []);
+
+
+  
+  
+
+
+
   return (
     <div>
       <div className="dash1-container">
@@ -15,17 +71,17 @@ function Dashboard() {
         <DashboardCard
           icon={<ShoppingCartOutlined style={{ color: 'green', backgroundColor: 'rgba(0,255,0,0.25)', borderRadius: 20, fontSize: 24, padding: 8 }} />}
           title={'Commandes'}
-          value={120}
+          value={commandeDocumentCount}
         />
         <DashboardCard
           icon={<UserOutlined style={{ color: 'blue', backgroundColor: 'rgba(0,0,255,0.25)', borderRadius: 20, fontSize: 24, padding: 8 }} />}
           title={'Clients'}
-          value={120}
+          value={userDocumentCount}
         />
         <DashboardCard
           icon={<ShopOutlined style={{ color: 'purple', backgroundColor: 'rgba(0,255,255,0.25)', borderRadius: 20, fontSize: 24, padding: 8 }} />}
           title={'Produits'}
-          value={120}
+          value={productDocumentCount}
         />
       </Space>
       </div>

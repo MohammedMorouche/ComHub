@@ -1,8 +1,27 @@
 import { useState, useRef } from 'react';
+import { db, storage } from '../../firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 function AddProduct() {
+
+  const uploadPhoto = async (file) => {
+    if (!file) return null;
+  
+    const storageRef = ref(storage, `photos/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+  
+    try {
+      const snapshot = await uploadTask;
+      const photoUrl = await getDownloadURL(snapshot.ref);
+      return photoUrl;
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+      return null;
+    }
+  };
+
   const [product, setProduct] = useState({
-    id: '',
     name: '',
     description: '',
     price: '',
@@ -30,10 +49,30 @@ function AddProduct() {
     fileInputRef.current.click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // logique pour ajouter un nouveau produit avec l'ID, la photo et la catégorie
-    console.log('Nouveau produit ajouté:', product);
+  
+    try {
+      const photoUrl = await uploadPhoto(product.photo);
+  
+      const newProduct = {
+        ...product,
+        photo: photoUrl || '',
+      };
+  
+      const docRef = await addDoc(collection(db, 'products'), newProduct);
+      console.log('New product added with ID:', docRef.id);
+      // Reset the form or perform any additional actions
+      setProduct({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        photo: null,
+      });
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   };
 
   return (
@@ -42,16 +81,6 @@ function AddProduct() {
         <div className="dash1">Add Product</div>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="id">ID</label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={product.id}
-            onChange={handleChange}
-          />
-        </div>
         <div>
           <label htmlFor="name">Nom</label>
           <input
@@ -119,7 +148,3 @@ function AddProduct() {
 }
 
 export default AddProduct;
-
-
-
-

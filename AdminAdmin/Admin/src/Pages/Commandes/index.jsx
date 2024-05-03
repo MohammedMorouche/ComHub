@@ -5,6 +5,20 @@ import { db } from "../../firebase-config"
 import { collection, getDocs,addDoc , doc, updateDoc} from "firebase/firestore"
 
 
+const PaginationComponent = ({ rowsPerPageText, rangeSeparatorText, noRowsPerPage, currentPage, totalPages, onChangeRowsPerPage, onChangePage }) => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Button onClick={() => onChangePage(currentPage - 1)} disabled={currentPage === 1}>
+      Précédent
+    </Button>
+    <span style={{ margin: '0 10px' }}>
+      Page {currentPage} sur {totalPages}
+    </span>
+    <Button onClick={() => onChangePage(currentPage + 1)} disabled={currentPage === totalPages}>
+      Suivant
+    </Button>
+  </div>
+);
+
 function Commandes() {
   const [data, setData] = useState([]);
   const commandesCollectionRef = collection(db, "Commande"); // Replace "Commandes" with your actual collection name
@@ -126,7 +140,8 @@ function Commandes() {
             customStyles={customStyles}
             selectableRows
             fixedHeader
-            /*pagination*/
+            pagination
+            paginationComponent={PaginationComponent}
             selectableRowsHighlight
             highlightOnHover
           />
