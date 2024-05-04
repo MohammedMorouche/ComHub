@@ -28,7 +28,7 @@ function Sidebar(){
                 key:'/Produits'
             },
             {
-                label:" AddProduits",
+                label:" AddProduct",
                 icon :<ShopOutlined/>,
                 key:'/AddProduits'
 

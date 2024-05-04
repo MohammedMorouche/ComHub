@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { db, storage } from '../../firebase-config';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 function UpdateProduct() {
@@ -11,6 +11,7 @@ function UpdateProduct() {
     price: '',
     category: '',
     photo: '',
+    promotion: false,
   });
   const { id } = useParams();
   const fileInputRef = useRef(null);
@@ -18,13 +19,10 @@ function UpdateProduct() {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        // Fetch the product document from Firestore
         const docRef = doc(db, 'products', id);
         const docSnap = await getDoc(docRef);
-        
-        // Check if the document exists
+
         if (docSnap.exists()) {
-          // If it exists, set the product state with the document data
           const data = docSnap.data();
           setProduct({
             name: data.name || '',
@@ -32,6 +30,7 @@ function UpdateProduct() {
             price: data.price || '',
             category: data.category || '',
             photo: data.photo || '',
+            promotion: data.promotion || false,
           });
         } else {
           console.log('No such product document!');
@@ -40,14 +39,14 @@ function UpdateProduct() {
         console.error('Error fetching product data:', error);
       }
     };
-  
+
     fetchProductData();
   }, [id]);
-  
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    const { name, value, type, checked } = e.target;
+    const updatedValue = type === 'checkbox' ? checked : value;
+    setProduct({ ...product, [name]: updatedValue });
   };
 
   const handlePhotoUpload = async (e) => {
@@ -82,7 +81,7 @@ function UpdateProduct() {
   return (
     <div>
       <div className="dash1-container">
-        <div className="dash1">Product Liste</div>
+        <div className="dash1">Update Product</div>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
@@ -144,6 +143,16 @@ function UpdateProduct() {
           {product.photo && (
             <p>Selected File: {typeof product.photo === 'string' ? product.photo : product.photo.name}</p>
           )}
+        </div>
+        <div>
+          <label htmlFor="promotion">Promotion</label>
+          <input
+            type="checkbox"
+            id="promotion"
+            name="promotion"
+            checked={product.promotion}
+            onChange={handleChange}
+          />
         </div>
         <button type="submit">Update Product</button>
       </form>

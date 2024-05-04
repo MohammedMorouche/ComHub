@@ -55,7 +55,7 @@ function Produits(){
   return (
     <div style={{ textAlign: 'center' }}>
       <div className="dash1-container">
-        <div className="dash1">Product Liste</div>
+        <div className="dash1">Product List</div>
       </div>
       <div className="search-container">
         <input

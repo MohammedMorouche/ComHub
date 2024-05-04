@@ -58,6 +58,7 @@ function AddProduct() {
       const newProduct = {
         ...product,
         photo: photoUrl || '',
+        promotion: false,
       };
   
       const docRef = await addDoc(collection(db, 'products'), newProduct);
