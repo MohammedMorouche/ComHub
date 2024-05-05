@@ -131,9 +131,12 @@ const MainHeader = () => {
           {user && (
             <>
               <button className="cart">
-                <CartLink to="/Cart">
+                <ScrollToTop to="/Cart">
+                <CartLink>
                   <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
+                  <span></span>
                 </CartLink>
+                </ScrollToTop>
               </button>
               <button onClick={handleLogout} className="button-ani">
                 Déconnexion

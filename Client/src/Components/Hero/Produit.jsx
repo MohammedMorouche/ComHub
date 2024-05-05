@@ -1,45 +1,75 @@
 import PropTypes from "prop-types";
 import { auth } from "../../firebase";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ScrollToTop from "../ScrollToTop";
-import { useContext } from "react";
 import { CartContext } from "../Cart/CartUtils.jsx";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Produit = ({ imgSrc, titreProduit, prixProduit }) => {
- // const user = auth.currentUser;
- const [user, setUser] = useState(auth.currentUser); // State to store the current user
+const ProductCard = styled.div`
+  background-color: #06122f;
+  backdrop-filter: blur(10px);
+  padding: 20px 20px 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  margin-right: 20px;
+  min-width: 200px;
+  border-radius: 9px;
+  position: relative;
+  color: white;
 
- useEffect(() => {
-   const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-     setUser(currentUser); // Update the user state when the authentication state changes
-   });
+  &:hover {
+    transform: translateY(-5px);
+  }
 
-   // Clean up the listener when the component unmounts
-   return () => {
-     unsubscribe();
-   };
- }, []); // useEffect runs only once on component mount
+  @media (max-width: 767px) {
+    width: 50%; /* On smaller screens, display two products per line */
+  }
+  @media (max-width: 480px) {
+    width: 100%; /* On very small screens, display one product per line */
+  }
+`;
+const ProductImage = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  color: white;
+`;
+const Produit = ({ image, name, price, product }) => {
+  const [user, setUser] = useState(auth.currentUser);
   const { addToCart } = useContext(CartContext);
-  const product = { id: Math.random(), imgSrc, titreProduit, prixProduit };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
-      <div className="produit">
-        <ScrollToTop to={user ? "/shop/" : "/connexion"}>
-          <img src={imgSrc} alt="" />
-          <h4 className="titreDeProduit">{titreProduit}</h4>
-          <h5 className="PrixDeProduit">{prixProduit} DA</h5>
-          <button className="button-ani" onClick={() => addToCart(product)}>
-            Ajouter au panier
-          </button>
-        </ScrollToTop>
-      </div>
+    <ProductCard>
+      {/* <Link to={`/product-details/${product.id}`}> */}
+      <ScrollToTop to={user ? `/product-details/${product.id}` : "/connexion"}>
+        <ProductImage src={image} alt={name} />
+        <h4>{name}</h4>
+        <p>{price} DA</p>
+      </ScrollToTop>
+      {/* </Link> */}
+      <button className="button-ani" onClick={() => addToCart(product)}>
+        Ajouter au panier
+      </button>
+    </ProductCard>
   );
 };
 
 Produit.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
-  titreProduit: PropTypes.string.isRequired,
-  prixProduit: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired, // Update the price prop type to number
+  product: PropTypes.object.isRequired,
 };
 
 export default Produit;

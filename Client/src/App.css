@@ -515,7 +515,7 @@ ul {
 }
 
 .logos {
-  overflow: hidden;
+  overflow: auto;
   padding: 60px 0;
   background: white;
   white-space: nowrap;

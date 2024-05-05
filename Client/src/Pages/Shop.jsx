@@ -5,9 +5,9 @@ import image2 from "../images/produits/img2.jpg";
 import image3 from "../images/produits/img3.jpg";
 import image4 from "../images/produits/img4.jpg";
 import ActiveLink from "../Components/ActiveLink";
-import { useLocation } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import ScrollToTop from "../Components/ScrollToTop.jsx";
 import {
   faMagnifyingGlass,
   faFilter,
@@ -124,7 +124,7 @@ const Shop = () => {
     // Filter by category
     if (activeFilter !== "all") {
       filtered = filtered.filter(
-        (product) => product.category === activeFilter
+          (product) => product.category === activeFilter
       );
     }
 
@@ -134,7 +134,7 @@ const Shop = () => {
       return price >= priceFilter.min && price <= priceFilter.max;
     });
     filtered = filtered.filter((product) =>
-      product.titreProduit.toLowerCase().includes(searchQuery.toLowerCase())
+        product.titreProduit.toLowerCase().includes(searchQuery.toLowerCase())
     ); // Filter by search query
 
     // Sort by price
@@ -184,173 +184,177 @@ const Shop = () => {
   }, [location]);
 
   return (
-    <>
-      <div className={`fax ${isFilterOpen ? "fixa" : ""}`} onClick={handlefix}>
-        <FontAwesomeIcon icon={faXmark} />
-      </div>
+      <>
+        <div className={`fax ${isFilterOpen ? "fixa" : ""}`} onClick={handlefix}>
+          <FontAwesomeIcon icon={faXmark} />
+        </div>
 
-      <div className="shop-container">
-        <div className="container">
-          <div className="before">
-            <div className="pathSidebar">
-              <p>Acceuil</p>
-              <span>/</span>
-              <p className="shopp"> Shop</p>
-            </div>
-            <div className="searchBar">
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className={`faMagnifyShop ${
-                  searchQuery.length === 0 ? "" : "hidden"
-                }`}
-              />
+        <div className="shop-container">
+          <div className="container">
+            <div className="before">
+              <div className="pathSidebar">
+                <p>Acceuil</p>
+                <span>/</span>
+                <p className="shopp"> Shop</p>
+              </div>
+              <div className="searchBar">
+                <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className={`faMagnifyShop ${
+                        searchQuery.length === 0 ? "" : "hidden"
+                    }`}
+                />
 
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={handleSearch}
-              />
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                />
+              </div>
+              <div className="filtrer" onClick={handleToggleFilter}>
+                <FontAwesomeIcon icon={faFilter} />
+                <strong>Filtrer</strong>
+              </div>
             </div>
-            <div className="filtrer" onClick={handleToggleFilter}>
-              <FontAwesomeIcon icon={faFilter} />
-              <strong>Filtrer</strong>
-            </div>
-          </div>
-          <div className="shop">
-            <div className={`${isFilterOpen ? "open" : "sidebar"}`}>
-              <ul>
-                <li>
-                  <a href="" onClick={() => handleFilterChange("all")}>
-                    <ActiveLink to="/shop/all">Tous</ActiveLink>
-                  </a>
-                </li>
-                <li>
-                  <ActiveLink
-                      onClick={() => handleFilterChange("laptops")}
-                      to="/shop/laptops"
-                  >
-                    Laptops
-                  </ActiveLink>
-                </li>
-                <li>
-                  <ActiveLink
-                      onClick={() => handleFilterChange("composants")}
-                      to="/shop/composants"
-                  >
-                    Composants
-                  </ActiveLink>
-                </li>
-                <li>
-                  <ActiveLink
-                      onClick={() => handleFilterChange("peripheriques")}
-                      to="/shop/peripheriques"
-                  >
-                    Périphériques
-                  </ActiveLink>
-                </li>
-                <li>
-                  <ActiveLink
-                      onClick={() => handleFilterChange("accesoires")}
-                      to="/shop/accesoires"
-                  >
-                    Accessoires
-                  </ActiveLink>
-                </li>
-              </ul>
-              <h3 className="filtH3">Filtres</h3>
-              <div className="filters">
-                <div className="parPrix">
-                  <h3>Prix</h3>
-                  <div className="parPrixContain">
-                    <div>
-                      <label htmlFor="min-price">Min:</label>
-                      <input
-                          type="number"
-                          id="min-price"
-                          value={priceFilter.min}
-                          onChange={(e) =>
-                              handlePriceFilterChange(
-                                  e.target.value,
-                                  priceFilter.max
-                              )
-                          }
-                      />
+            <div className="shop">
+              <div className={`${isFilterOpen ? "open" : "sidebar"}`}>
+                <ul>
+                  <li>
+                    <a href="" onClick={() => handleFilterChange("all")}>
+                      <ActiveLink to="/shop/all">Tous</ActiveLink>
+                    </a>
+                  </li>
+                  <li>
+                    <ActiveLink
+                        onClick={() => handleFilterChange("laptops")}
+                        to="/shop/laptops"
+                    >
+                      Laptops
+                    </ActiveLink>
+                  </li>
+                  <li>
+                    <ActiveLink
+                        onClick={() => handleFilterChange("composants")}
+                        to="/shop/composants"
+                    >
+                      Composants
+                    </ActiveLink>
+                  </li>
+                  <li>
+                    <ActiveLink
+                        onClick={() => handleFilterChange("peripheriques")}
+                        to="/shop/peripheriques"
+                    >
+                      Périphériques
+                    </ActiveLink>
+                  </li>
+                  <li>
+                    <ActiveLink
+                        onClick={() => handleFilterChange("accesoires")}
+                        to="/shop/accesoires"
+                    >
+                      Accessoires
+                    </ActiveLink>
+                  </li>
+                </ul>
+                <h3 className="filtH3">Filtres</h3>
+                <div className="filters">
+                  <div className="parPrix">
+                    <h3>Prix</h3>
+                    <div className="parPrixContain">
+                      <div>
+                        <label htmlFor="min-price">Min:</label>
+                        <input
+                            type="number"
+                            id="min-price"
+                            value={priceFilter.min}
+                            onChange={(e) =>
+                                handlePriceFilterChange(
+                                    e.target.value,
+                                    priceFilter.max
+                                )
+                            }
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="max-price">Max:</label>
+                        <input
+                            type="number"
+                            id="max-price"
+                            value={priceFilter.max}
+                            onChange={(e) =>
+                                handlePriceFilterChange(
+                                    priceFilter.min,
+                                    e.target.value
+                                )
+                            }
+                        />
+                      </div>
+                      <button onClick={handleReset}>Reset</button>
+                      {" "}
+                      {/* Reset button */}
                     </div>
-                    <div>
-                      <label htmlFor="max-price">Max:</label>
-                      <input
-                          type="number"
-                          id="max-price"
-                          value={priceFilter.max}
-                          onChange={(e) =>
-                              handlePriceFilterChange(
-                                  priceFilter.min,
-                                  e.target.value
-                              )
-                          }
-                      />
-                    </div>
-                    <button onClick={handleReset}>Reset</button>
-                    {" "}
-                    {/* Reset button */}
                   </div>
-                </div>
-                <div className="parTrier">
-                  <h3>Trier par</h3>
-                  <div className="parTrierContain">
-                    <div>
-                      <label className="radio-label ">
-                        <input
-                            type="radio"
-                            name="sort-order"
-                            checked={sortOrder === "latest"}
-                            onChange={() => handleSortOrderChange("latest")}
-                        />
-                        Derniers ajoutés
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                            type="radio"
-                            name="sort-order"
-                            checked={sortOrder === "asc"}
-                            onChange={() => handleSortOrderChange("asc")}
-                        />
-                        Prix croissant
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                            type="radio"
-                            name="sort-order"
-                            checked={sortOrder === "desc"}
-                            onChange={() => handleSortOrderChange("desc")}
-                        />
-                        Prix décroissant
-                      </label>
+                  <div className="parTrier">
+                    <h3>Trier par</h3>
+                    <div className="parTrierContain">
+                      <div>
+                        <label className="radio-label ">
+                          <input
+                              type="radio"
+                              name="sort-order"
+                              checked={sortOrder === "latest"}
+                              onChange={() => handleSortOrderChange("latest")}
+                          />
+                          Derniers ajoutés
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input
+                              type="radio"
+                              name="sort-order"
+                              checked={sortOrder === "asc"}
+                              onChange={() => handleSortOrderChange("asc")}
+                          />
+                          Prix croissant
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input
+                              type="radio"
+                              name="sort-order"
+                              checked={sortOrder === "desc"}
+                              onChange={() => handleSortOrderChange("desc")}
+                          />
+                          Prix décroissant
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="products-container">
-              {filteredProducts.map((product) => (
-                  <Produit
-                      key={product.id}
-                      imgSrc={product.imgSrc}
-                      titreProduit={product.titreProduit}
-                      prixProduit={product.prixProduit}
-                      addToCart={addToCart} // Passing the addToCart function as a prop
-                  />
-              ))}
+              <div className="products-container">
+                {filteredProducts.map((product) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <ScrollToTop to={`/product-details/${product.id}`}>
+                      <Produit
+                          key={product.id}
+                          image={product.imgSrc}
+                          name={product.titreProduit}
+                          price={product.prixProduit}
+                          addToCart={addToCart}
+                          product={product}// Passing the addToCart function as a prop
+                      />
+                    </ScrollToTop>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </>
   );
 };
 
