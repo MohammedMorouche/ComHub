@@ -28,7 +28,7 @@ function App() {
               <Route path="laptops" element={<Shop />} />
               <Route path="composants" element={<Shop />} />
               <Route path="peripheriques" element={<Shop />} />
-              <Route path="accesoires" element={<Shop />} />
+              <Route path="accessoires" element={<Shop />} />
             </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="/apropos" element={<Apropos />} />

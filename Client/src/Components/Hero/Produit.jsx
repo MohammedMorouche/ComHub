@@ -58,9 +58,11 @@ const Produit = ({ image, name, price, product }) => {
         <p>{price} DA</p>
       </ScrollToTop>
       {/* </Link> */}
-      <button className="button-ani" onClick={() => addToCart(product)}>
-        Ajouter au panier
-      </button>
+      {user && (
+        <button className="button-ani" onClick={() => addToCart(product)}>
+          Ajouter au panier
+        </button>
+      )}
     </ProductCard>
   );
 };

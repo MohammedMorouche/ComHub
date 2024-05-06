@@ -8,6 +8,7 @@ import ActiveLink from "../Components/ActiveLink";
 import {Link, useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollToTop from "../Components/ScrollToTop.jsx";
+import productData from "../Components/Data/ProductData.jsx";
 import {
   faMagnifyingGlass,
   faFilter,
@@ -27,91 +28,20 @@ const Shop = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { pathname } = useLocation();
 
-  const [user] = useAuthState(auth);
-  // const user = auth.currentUser;
-  const navigate = useNavigate();
+  // const [user] = useAuthState(auth);
+  // // const user = auth.currentUser;
+  // const navigate = useNavigate();
 
   const {addToCart} = useContext(CartContext);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/Connexion");
-    }
+    // if (!user) {
+    //   navigate("/Connexion");
+    // }
     // Generate random product data
-    const randomProducts = [
-      {
-        id: 1,
-        imgSrc: image1,
-        titreProduit: "Laptop 1",
-        prixProduit: 999.99,
-        category: "laptops",
-      },
-      {
-        id: 2,
-        imgSrc: image2,
-        titreProduit: "Component 1",
-        prixProduit: 149.99,
-        category: "composants",
-      },
-      {
-        id: 3,
-        imgSrc: image3,
-        titreProduit: "Peripheral 1",
-        prixProduit: 79.99,
-        category: "peripheriques",
-      },
-      {
-        id: 4,
-        imgSrc: image4,
-        titreProduit: "Accessory 1",
-        prixProduit: 29.99,
-        category: "accesoires",
-      },
-      {
-        id: 5,
-        imgSrc: image1,
-        titreProduit: "Laptop 2",
-        prixProduit: 1299.99,
-        category: "laptops",
-      },
-      {
-        id: 6,
-        imgSrc: image2,
-        titreProduit: "Component 2",
-        prixProduit: 199.99,
-        category: "composants",
-      },
-      {
-        id: 7,
-        imgSrc: image3,
-        titreProduit: "Peripheral 2",
-        prixProduit: 99.99,
-        category: "peripheriques",
-      },
-      {
-        id: 8,
-        imgSrc: image4,
-        titreProduit: "Accessory 2",
-        prixProduit: 39.99,
-        category: "accesoires",
-      },
-      {
-        id: 9,
-        imgSrc: image1,
-        titreProduit: "Laptop 3",
-        prixProduit: 1499.99,
-        category: "laptops",
-      },
-      {
-        id: 10,
-        imgSrc: image2,
-        titreProduit: "Component 3",
-        prixProduit: 249.99,
-        category: "composants",
-      },
-    ];
+  
 
-    setProducts(randomProducts);
+    setProducts(productData);
 
     // Set initial active filter state based on current category from URL path
     const currentCategory = pathname.split("/").pop();
@@ -130,11 +60,11 @@ const Shop = () => {
 
     // Filter by price
     filtered = filtered.filter((product) => {
-      const price = parseFloat(product.prixProduit);
+      const price = parseFloat(product.price);
       return price >= priceFilter.min && price <= priceFilter.max;
     });
     filtered = filtered.filter((product) =>
-        product.titreProduit.toLowerCase().includes(searchQuery.toLowerCase())
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
     ); // Filter by search query
 
     // Sort by price
@@ -142,9 +72,9 @@ const Shop = () => {
       if (sortOrder === "latest") {
         return b.createdAt - a.createdAt;
       } else if (sortOrder === "asc") {
-        return parseFloat(a.prixProduit) - parseFloat(b.prixProduit);
+        return parseFloat(a.price) - parseFloat(b.price);
       } else {
-        return parseFloat(b.prixProduit) - parseFloat(a.prixProduit);
+        return parseFloat(b.price) - parseFloat(a.price);
       }
     });
 
@@ -251,8 +181,8 @@ const Shop = () => {
                   </li>
                   <li>
                     <ActiveLink
-                        onClick={() => handleFilterChange("accesoires")}
-                        to="/shop/accesoires"
+                        onClick={() => handleFilterChange("accessoires")}
+                        to="/shop/accessoires"
                     >
                       Accessoires
                     </ActiveLink>
@@ -339,16 +269,16 @@ const Shop = () => {
               <div className="products-container">
                 {filteredProducts.map((product) => (
                     // eslint-disable-next-line react/jsx-key
-                    <ScrollToTop to={`/product-details/${product.id}`}>
+                    // <ScrollToTop to={`/product-details/${product.id}`}>
                       <Produit
                           key={product.id}
-                          image={product.imgSrc}
-                          name={product.titreProduit}
-                          price={product.prixProduit}
-                          addToCart={addToCart}
+                          image={product.photo}
+                          name={product.name}
+                          price={product.price}
+                          // addToCart={addToCart}
                           product={product}// Passing the addToCart function as a prop
                       />
-                    </ScrollToTop>
+                    // </ScrollToTop>
                 ))}
               </div>
             </div>

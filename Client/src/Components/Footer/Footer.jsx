@@ -51,7 +51,7 @@ const Footer = () => {
               <ActiveLink to = "/shop/peripheriques">Périphériques</ActiveLink>
             </li>
             <li>
-              <ActiveLink to = "/shop/accesoires">Accessoires</ActiveLink>
+              <ActiveLink to = "/shop/accessoires">Accessoires</ActiveLink>
             </li>
           </ul>
         </div>

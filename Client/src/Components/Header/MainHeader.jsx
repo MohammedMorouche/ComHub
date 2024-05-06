@@ -101,7 +101,7 @@ const MainHeader = () => {
                   </ActiveLink>
                 </li>
                 <li>
-                  <ActiveLink to="/shop/accesoires">Accessoires</ActiveLink>
+                  <ActiveLink to="/shop/accessoires">Accessoires</ActiveLink>
                 </li>
               </ul>
             )}

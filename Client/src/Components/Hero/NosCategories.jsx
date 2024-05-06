@@ -36,7 +36,7 @@ const NosCategories = () => {
             imageHover={img3Hover}
           />
           <Category
-            cat="shop/accesoires"
+            cat="shop/accessoires"
             title="Accessoires"
             image={img4}
             imageHover={img4Hover}  
