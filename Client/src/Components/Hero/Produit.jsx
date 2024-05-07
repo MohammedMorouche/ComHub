@@ -37,7 +37,7 @@ const ProductImage = styled.img`
   color: white;
 `;
 const Produit = ({ image, name, price, product }) => {
-  console.log("object "+  "   " +product.price);
+  console.log(product);
   const [user, setUser] = useState(auth.currentUser);
   const { addToCart } = useContext(CartContext);
   useEffect(() => {
@@ -52,7 +52,7 @@ const Produit = ({ image, name, price, product }) => {
   return (
     <ProductCard>
       {/* <Link to={`/product-details/${product.id}`}> */}
-      <ScrollToTop key = {product.id} to={user ? `/product-details/${product.id}` : "/connexion"}>
+      <ScrollToTop to={user ? `/product-details/${product.id}` : "/connexion"}>
       {/* <ScrollToTop to={user ? `/product-details` : "/connexion"}> */}
         <ProductImage src={image} alt={name} />
         <h4>{name}</h4>

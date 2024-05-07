@@ -60,22 +60,22 @@ function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
         const data = await ProductData();
         setProductData(data);
       } catch (err) {
-      console.log("error");
+        console.log("error");
       }
     };
-
     fetchData();
+  
+
     if (!user) {
       navigate("/Connexion");
     }
   }, []);
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0  
+    0
   );
 
   return (
@@ -86,7 +86,7 @@ function Cart() {
           <FaShoppingCart color="red" /> is empty !
         </Emptycart>
       ) : (
-        <div >
+        <div>
           {cartItems.map((item) => {
             const product = productData.find((p) => p.id === item.id);
             return (

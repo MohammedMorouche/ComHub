@@ -89,8 +89,10 @@ const ProductDetailsPage = () => {
   }, []);
 
   const selectedProduct = productData.find(
-    (product) => product.id === parseInt(productId)
+    // (product) => product.id === parseInt(productId)
+    (product) => product.id === productId
   );
+ 
   const similarProducts = productData.filter(
     (product) =>
       product.category === selectedProduct.category &&
@@ -99,6 +101,7 @@ const ProductDetailsPage = () => {
   const { addToCart } = useContext(CartContext);
   if (!selectedProduct) {
     return <div>Product not found</div>;
+
   }
 
   return (
@@ -122,6 +125,7 @@ const ProductDetailsPage = () => {
       <SimilarProductsWrapper>
         {similarProducts.map((product) => (
           <Link to={`/product-details/${product.id}`} key={product.id}>
+          <>
             <SimilarProductCard>
               <SimilarProductImage src={product.photo} alt={product.name} />
               <SimilarProductInfo>
@@ -135,6 +139,7 @@ const ProductDetailsPage = () => {
                 Ajouter au panier
               </button>
             </SimilarProductCard>
+            </>
            </Link>
         ))}
       </SimilarProductsWrapper>
