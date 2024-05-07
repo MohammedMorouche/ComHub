@@ -18,7 +18,7 @@ const NosCategories = () => {
         <h1>Nos Catégories</h1>
         <div className="categories-container">
           <Category
-            cat="shop/laptops"
+            cat="shop/pc"
             title="Laptops"
             image={img1}
             imageHover={img1Hover}

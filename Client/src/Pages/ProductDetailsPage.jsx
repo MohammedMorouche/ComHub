@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import productData from "../Components/Data/ProductData";
+import ProductData from "../Components/Data/ProductData";
 import styled from "styled-components";
 import { CartContext } from "../Components/Cart/CartUtils";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useState } from "react";
 const ProductDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -69,6 +70,24 @@ const ProductDetailsPage = () => {
   // const user = auth.currentUser;
   const navigate = useNavigate();
   const { productId } = useParams();
+  const [productData, setProductData] = useState([]);
+  // const user = auth.currentUser;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await ProductData();
+        setProductData(data);
+      } catch (err) {
+        console.log("error");
+      }
+    };
+
+    fetchData();
+    if (!user) {
+      navigate("/Connexion");
+    }
+  }, []);
+
   const selectedProduct = productData.find(
     (product) => product.id === parseInt(productId)
   );
@@ -81,11 +100,6 @@ const ProductDetailsPage = () => {
   if (!selectedProduct) {
     return <div>Product not found</div>;
   }
-  useEffect(() => {
-    if (!user) {
-      navigate("/Connexion");
-    }
-  }, []);
 
   return (
     <ProductDetailsWrapper>
@@ -121,7 +135,7 @@ const ProductDetailsPage = () => {
                 Ajouter au panier
               </button>
             </SimilarProductCard>
-          </Link>
+           </Link>
         ))}
       </SimilarProductsWrapper>
     </ProductDetailsWrapper>

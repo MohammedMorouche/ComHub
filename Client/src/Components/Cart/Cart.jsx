@@ -2,8 +2,9 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FaTrashAlt, FaShoppingCart, FaMinus, FaPlus } from "react-icons/fa";
+import { useState } from "react";
 import { CartContext } from "./CartUtils.jsx";
-import productData from "../Data/ProductData";
+import ProductData from "../Data/ProductData.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase.jsx";
 import { useEffect } from "react";
@@ -53,16 +54,28 @@ const Emptycart = styled.div`
 function Cart() {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
   const [user] = useAuthState(auth);
+  const [productData, setProductData] = useState([]);
   // const user = auth.currentUser;
   const navigate = useNavigate();
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        
+        const data = await ProductData();
+        setProductData(data);
+      } catch (err) {
+      console.log("error");
+      }
+    };
+
+    fetchData();
     if (!user) {
       navigate("/Connexion");
     }
   }, []);
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0  
   );
 
   return (
@@ -73,7 +86,7 @@ function Cart() {
           <FaShoppingCart color="red" /> is empty !
         </Emptycart>
       ) : (
-        <div>
+        <div >
           {cartItems.map((item) => {
             const product = productData.find((p) => p.id === item.id);
             return (

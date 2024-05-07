@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<Acceuil />} />
             <Route path="/shop" element={<Shop />}>
               <Route path="/shop/all" element={<Shop />} />
-              <Route path="laptops" element={<Shop />} />
+              <Route path="pc" element={<Shop />} />
               <Route path="composants" element={<Shop />} />
               <Route path="peripheriques" element={<Shop />} />
               <Route path="accessoires" element={<Shop />} />
@@ -41,7 +41,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
-      </CartProvider>
+       </CartProvider>
   );
 }
 export default App;

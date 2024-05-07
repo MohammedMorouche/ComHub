@@ -90,7 +90,7 @@ const MainHeader = () => {
             {isHovered && (
               <ul className="dropdown-menu">
                 <li>
-                  <ActiveLink to="/shop/laptops">Laptops</ActiveLink>
+                  <ActiveLink to="/shop/pc">Laptops</ActiveLink>
                 </li>
                 <li>
                   <ActiveLink to="/shop/composants">Composants</ActiveLink>

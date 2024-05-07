@@ -7,7 +7,7 @@ const CartItem = ({ product, removeFromCart, updateQuantity }) => {
 
     const handleRemoveFromCart = () => {
         removeFromCart(id);
-    };
+    };  
 
     const handleQuantityChange = (event) => {
         const newQuantity = parseInt(event.target.value, 10);
@@ -33,7 +33,7 @@ const CartItem = ({ product, removeFromCart, updateQuantity }) => {
             </div>
         </li>
     );
-};
+};  
 
 CartItem.propTypes = {
     product: PropTypes.shape({

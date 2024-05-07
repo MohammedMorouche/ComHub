@@ -42,7 +42,7 @@ const Footer = () => {
           <h2>Catégories</h2>
           <ul>
             <li>
-              <ActiveLink to = "/shop/laptops">Laptops</ActiveLink>
+              <ActiveLink to = "/shop/pc">Laptops</ActiveLink>
             </li>
             <li>
               <ActiveLink to = "/shop/composants">Composants</ActiveLink>
