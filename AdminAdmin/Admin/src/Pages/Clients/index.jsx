@@ -43,10 +43,31 @@ function Clients() {
   ];
 
   const customStyles = {
-    headRow: { style: { background: 'lightcyan', color: 'Black' } },
-    headCells: { style: { color: 'black', fontsize: '16px', fontWeight: '600' } },
-    rows: { style: { background: 'skyblue', fontsize: '16px', minHeight: '56px', } },
-    Cells: { style: { fontsize: '16px' } }
+    headRow: {
+      style: {
+        background: 'lightcyan',
+        color: 'Black'
+      }
+    },
+    headCells: {
+      style: {
+        color: 'black',
+        fontsize: '16px',
+        fontWeight: '600'
+      }
+    },
+    rows: {
+      style: {
+        background: 'skyblue',
+        fontsize: '16px',
+        minHeight: '56px',
+      }
+    },
+    Cells: {
+      style: {
+        fontsize: '16px'
+      }
+    }
   };
 
   function handleFilter(event) {
@@ -73,6 +94,7 @@ function Clients() {
           selectableRows
           fixedHeader
           pagination
+          paginationPerPage={5} // Limite le nombre de lignes par page à 5
           paginationComponent={PaginationComponent}
           selectableRowsHighlight
           highlightOnHover
