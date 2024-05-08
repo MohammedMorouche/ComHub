@@ -95,6 +95,7 @@ ul {
   .shop .jcAWUP {
     width: 30%;
   }
+  
 }
 @media (min-width: 662px) {
   .features .container div {
@@ -754,6 +755,9 @@ a:hover {
   flex-wrap: wrap;
   width: 70%;
 }
+.shop-container .products-container div {
+  flex: 1;
+}
 .shop-container .shop .sidebar ul li {
   height: 40px;
   font-size: 20px;
@@ -896,3 +900,17 @@ a:hover {
 .faMagnifyShop.hidden {
   opacity: 0; /* Make the icon invisible when hidden */
 }
+.sold-sticker {
+  position: absolute;
+  top: -20px; /* Adjust this value to your preference */
+  left: -20px; /* Adjust this value to your preference */
+  background-color: red; /* Or any color you want */
+  color: white;
+  
+  padding: 10px;
+  border-radius: 50%;
+  z-index: 3; /* Ensure the sticker appears on top of the product image */
+}
+
+
+

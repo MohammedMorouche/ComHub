@@ -30,7 +30,7 @@ const Checkout = () => {
 
   return (
     <>
-    <div>
+    <div style={{ height: '100vh' }}>
       <h1>Commande validée avec succès !</h1>
        <div className="success-animation">
           {/* Add your animation or validation message here */}
