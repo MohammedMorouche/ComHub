@@ -11,8 +11,8 @@ const Acceuil = () => {
       <Landing />
       <Features />
       <NosCategories />
-      {/* <ProduitAlaUne /> */}
-      {/* <ProduitEnPromotion /> */}
+      <ProduitAlaUne />
+      <ProduitEnPromotion />
      <Brands />
     </>
   );

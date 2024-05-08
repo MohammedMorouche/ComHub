@@ -3,7 +3,15 @@
   margin: 0;
   padding: 0;
 }
-
+.shop .gvXYeC {
+  width: 30%;
+}
+.puuul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 :root {
   --main-color: #0c0527;
   --transpirent-color: rgb(15 116 143 / 70%);

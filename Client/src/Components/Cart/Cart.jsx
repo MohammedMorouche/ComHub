@@ -9,6 +9,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { fs } from "../../firebase.jsx";
+import { getDocs } from "firebase/firestore";
+// import firebase from 'firebase/app';
+
 const CartItemQuantity = styled.div`
   display: flex;
   align-items: center;
@@ -51,50 +56,123 @@ const Emptycart = styled.div`
   margin-left: 660px;
 `;
 
-function Cart() {
+export function Cart() {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
   const [user] = useAuthState(auth);
   const [productData, setProductData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // const user = auth.currentUser;
   const navigate = useNavigate();
+
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  // Add a loading state
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await ProductData();
         setProductData(data);
+        setIsLoading(false); // Set loading state to false when data is fetched
       } catch (err) {
         console.log("error");
+        setIsLoading(false); // Set loading state to false in case of an error
       }
     };
     fetchData();
-  
 
     if (!user) {
       navigate("/Connexion");
     }
   }, []);
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const getUserProfile = async (uid) => {
+    try {
+      const usersCollectionRef = collection(fs, "users");
+      const querySnapshot = await getDocs(usersCollectionRef, {
+        where: ["uid", "==", uid],
+      });
+      const userDoc = querySnapshot.docs[0];
+      const userData = userDoc.data();
+      return {
+        FullName: userData.FullName || null,
+        Telephone: userData.Telephone || null,
+        Adresse : userData.Adresse
+      };
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      return { FullName: null, telephone: null };
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      const usere = auth.currentUser;
+      // Check if user is authenticated
+      // const user = firebase.auth().currentUser;
+      // if (!user) {
+      //   navigate('/Connexion');
+      //   return;
+      // }
+      const userProfile = await getUserProfile(usere.uid);
+
+      // Prepare order data
+      const order = {
+        date: new Date(),
+        price: totalPrice.toFixed(2),
+        products: cartItems.map((item) => ({
+          id: item.id,
+          name: productData.find((product) => product.id === item.id)?.name,
+          quantity: item.quantity,
+          total_price: item.price,
+        })),
+        name_user: userProfile.FullName || user.email, // Use the user's full name or email
+        Telephone: userProfile.Telephone || null,
+        Adresse : userProfile.Adresse,
+        delivery: false, // Set delivery status to false by default
+      };
+
+      // Save order to Firestore
+      // const docRef = await fs.collection('Commandes').addDoc(order);
+      const docRef = await addDoc(collection(fs, "Commandes"), order);
+      console.log("Order saved with ID:", docRef.id);
+
+      // Optional: Clear the cart after successful checkout
+      // clearCart(); // Implement this function to clear the cart items
+
+      navigate("/Checkout");
+
+      // After 3 seconds, redirect to the home page
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } catch (error) {
+      console.error("Error processing checkout:", error);
+      // Handle error, show error message, etc.
+    }
+  };
 
   return (
     <CartContainer>
       {cartItems.length === 0 ? (
         <Emptycart>
           Your
-          <FaShoppingCart color="red" /> is empty !
+          <FaShoppingCart color="red" /> is empty!
         </Emptycart>
+      ) : isLoading ? ( // Render a loading state while fetching data
+        <div>Loading...</div>
       ) : (
         <div>
           {cartItems.map((item) => {
             const product = productData.find((p) => p.id === item.id);
-            return (
+            return product ? ( // Check if product exists before rendering
               <CartItem key={item.id}>
                 <CartItemImage src={product.photo} alt={product.name} />
                 <CartItemInfo>
                   <h3>{product.name}</h3>
-                  <p>${product.price}</p>
+                  <p>{product.price} DA</p>
                   <CartItemQuantity>
                     <QuantityButton
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -115,11 +193,11 @@ function Cart() {
                   </RemoveButton>
                 </CartItemActions>
               </CartItem>
-            );
+            ) : null; // If product doesn't exist, render nothing
           })}
-          <TotalPrice>Total Price: ${totalPrice.toFixed(2)}</TotalPrice>
-          <CheckoutButton to="/checkout">
-            <FaShoppingCart size={20} /> Checkout
+          <TotalPrice>Total Price: {totalPrice.toFixed(2)} DA</TotalPrice>
+          <CheckoutButton onClick={handleCheckout}>
+            <FaShoppingCart size={20} /> Valider la commande
           </CheckoutButton>
         </div>
       )}

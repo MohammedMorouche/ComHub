@@ -26,30 +26,17 @@ const ProduitEnPromotion = () => {
       <div className="container">
         <h1>PRODUITS EN PROMOTION</h1>
         <div className="produits">
-          <Produit
-            image={image1}
-            name="ASUS 24″ LED – TUF VG249Q1A"
-            price="37900"
-            product={productData[1]}
-          />
-          <Produit
-            image={image2}
-            name="Intel Core i5-13400F (2.5 GHz / 4.6 GHz)"
-            price="41900"
-            product={productData[2]}
-          />
-          <Produit
-            image={image3}
-            name="FSP Hydro M Pro 800W"
-            price="16900"
-            product={productData[3]}
-          />
-          <Produit
-            image={image4}
-            name="AMD Ryzen 7 5800X (3.8 GHz / 4.7 GHz) TRAY"
-            price="48900"
-            product={productData[4]}
-          />
+          {productData.map((product) =>
+            product.promotion ? (
+              <Produit
+                key={product.id}
+                image={product.photo}
+                name={product.name}
+                price={product.price}
+                product={product}
+              />
+            ) : null
+          )}
         </div>
       </div>
     </div>

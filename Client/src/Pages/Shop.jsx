@@ -59,7 +59,7 @@ const Shop = () => {
     const fetchData = async () => {
       try {
         
-        const data = await ProductData();
+        const data = await ProductData();  
         setProducts(data);
       } catch (err) {
       console.log("error");
