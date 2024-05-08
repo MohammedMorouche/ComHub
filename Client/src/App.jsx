@@ -14,7 +14,6 @@ import Footer from "./Components/Footer/Footer";
 import Cart from "./Components/Cart/Cart.jsx";
 import { CartProvider, CartContext } from "./Components/Cart/CartUtils.jsx";
 import ProductDetailsPage from "./Pages/ProductDetailsPage.jsx";
-
 import Checkout from "./Components/Checkout.jsx";
 function App() {
   return (

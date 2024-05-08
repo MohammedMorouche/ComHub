@@ -6,15 +6,14 @@ import { useState } from "react";
 import { CartContext } from "./CartUtils.jsx";
 import ProductData from "../Data/ProductData.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { onAuthStateChanged } from 'firebase/auth';
-
-
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { fs } from "../../firebase.jsx";
 import { getDocs } from "firebase/firestore";
+
 // import firebase from 'firebase/app';
 
 const CartItemQuantity = styled.div`
@@ -67,16 +66,16 @@ export function Cart() {
   // const user = auth.currentUser;
   const navigate = useNavigate();
   const [usere, setUsere] = useState(null);
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
-    setUsere(currentUser);
-  });
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUsere(currentUser);
+    });
 
-
-  return () => {
-    unsubscribe();
-  };
-}, []);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -111,33 +110,32 @@ useEffect(() => {
       // const userDoc = querySnapshot.docs[0];
       let userDoc;
       querySnapshot.forEach((doc) => {
-          if (doc.data().id === uid) {
-              userDoc = doc;
-          }
+        if (doc.data().id === uid) {
+          userDoc = doc;
+        }
       });
       const userData = userDoc.data();
       return {
         FullName: userData.FullName || null,
         Telephone: userData.Telephone || null,
-        Adresse : userData.Adresse
+        Adresse: userData.Adresse,
       };
     } catch (error) {
       console.error("Error fetching user profile:", error);
       return { FullName: null, telephone: null };
     }
   };
-// const usere = auth.currentUser;
+  // const usere = auth.currentUser;
 
   const handleCheckout = async () => {
     try {
-      
       // Check if user is authenticated
       // const user = firebase.auth().currentUser;
       // if (!user) {
       //   navigate('/Connexion');
       //   return;
       // }
-      
+
       const userProfile = await getUserProfile(usere.uid);
 
       // Prepare order data
@@ -152,18 +150,14 @@ useEffect(() => {
         })),
         name_user: userProfile.FullName || user.email, // Use the user's full name or email
         Telephone: userProfile.Telephone || null,
-        Adresse : userProfile.Adresse,
+        Adresse: userProfile.Adresse,
         delivery: false, // Set delivery status to false by default
       };
 
-  
       const docRef = await addDoc(collection(fs, "Commandes"), order);
       console.log("Order saved with ID:", docRef.id);
 
-    
-
-      navigate("/Checkout");
-
+      // navigate("/chek");
 
       setTimeout(() => {
         navigate("/");
@@ -216,7 +210,7 @@ useEffect(() => {
             ) : null; // If product doesn't exist, render nothing
           })}
           <TotalPrice>Total Price: {totalPrice.toFixed(2)} DA</TotalPrice>
-          <CheckoutButton onClick={handleCheckout}>
+          <CheckoutButton onClick={handleCheckout} to = {"/Checkout"}>
             <FaShoppingCart size={20} /> Valider la commande
           </CheckoutButton>
         </div>

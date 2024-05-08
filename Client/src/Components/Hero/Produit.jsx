@@ -23,12 +23,7 @@ const ProductCard = styled.div`
     transform: translateY(-5px);
   }
 
-  @media (max-width: 767px) {
-    width: 50%; /* On smaller screens, display two products per line */
-  }
-  @media (max-width: 480px) {
-    width: 100%; /* On very small screens, display one product per line */
-  }
+
 `;
 const ProductImage = styled.img`
   width: 200px;

@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 
+
 const CartLink = styled(Link)`
   color: #fff;
   text-decoration: none;
@@ -30,10 +31,11 @@ const MainHeader = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = auth.currentUser;
   const nav = useNavigate();
-
+  const { clearCart } = useContext(CartContext);
   const handleLogout = () => {
     signOut(auth).then(() => {
       nav("/");
+      clearCart();
     });
   };
 

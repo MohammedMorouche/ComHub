@@ -297,7 +297,7 @@ const Shop = () => {
                 <Produit
                   key={product.id}
                   image={product.photo}
-                  name={product.name}
+                  name={product.name}  
                   price={product.price}
                   // addToCart={addToCart}
                   product={product} // Passing the addToCart function as a prop

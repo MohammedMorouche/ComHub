@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import ProductData from "../Components/Data/ProductData";
 import styled from "styled-components";
@@ -6,145 +6,190 @@ import { CartContext } from "../Components/Cart/CartUtils";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-const ProductDetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2rem;
-`;
+import "../App.css"
 
-const ProductImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+const ProductDetailsContainer = styled.div`
+    display: flex;
+    margin-top: 40px;
+    color: black;
+    margin-bottom: 50px;
 `;
 
 const ProductImage = styled.img`
-  max-width: 200px;
-  max-height: 200px;
-  object-fit: contain;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    margin-right: 40px;
+    margin-left: 30px;
 `;
 
 const ProductInfo = styled.div`
-  text-align: center;
-  margin-bottom: 2rem;
+    flex: 1;
+    color: black;
 `;
 
-const SimilarProductsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+const SimilarProductsContainer = styled.div`
+    margin: 20px;
 `;
 
 const SimilarProductCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
-  padding: 1rem;
-  background-color: #06122f;
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+    padding: 20px 20px 10px;
+    margin-bottom: 15px;
+    background-color: black;
+    margin-right: 20px;
+    text-align: center;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    border-radius: 9px;
+    position: relative;
+    color: white;
+    border: 1px solid gray;
+    cursor: pointer;
+    overflow: hidden;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+    &:before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) scaleY(1) scaleX(1.25);
+        top: 100%;
+        width: 140%;
+        height: 180%;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+        display: block;
+        transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+        z-index: -1;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 55%;
+        transform: translateX(-50%) scaleY(1) scaleX(1.45);
+        top: 180%;
+        width: 160%;
+        height: 190%;
+        background-color: #979797;
+        border-radius: 50%;
+        display: block;
+        transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+        z-index: -1;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        color: #0c0527;
+        border: 1px solid white;
+
+        &:before {
+            top: -35%;
+            background-color: #2b2b2b;
+            transform: translate(calc(var(--x, 50%) * -1), calc(var(--y, 50%) * -1)) scaleY(1.3) scaleX(0.8);
+        }
+
+        &:after {
+            top: -45%;
+            background-color: #323232;
+            transform: translate(calc(var(--x, 50%) * -1), calc(var(--y, 50%) * -1)) scaleY(1.3) scaleX(0.8);
+        }
+    }
+
+    @media (max-width: 767px) {
+        width: 50%; /* On smaller screens, display two products per line */
+    }
+
+    @media (max-width: 480px) {
+        width: 100%; /* On very small screens, display one product per line */
+    }
 `;
 
 const SimilarProductImage = styled.img`
-  max-width: 150px;
-  max-height: 150px;
-  object-fit: contain;
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
 `;
 
-const SimilarProductInfo = styled.div`
-  text-align: center;
-  margin-top: 1rem;
+const ActionButtons = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
 `;
-
 const ProductDetailsPage = () => {
-  const [user] = useAuthState(auth);
-  // const user = auth.currentUser;
-  const navigate = useNavigate();
-  const { productId } = useParams();
-  const [productData, setProductData] = useState([]);
-  // const user = auth.currentUser;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await ProductData();
-        setProductData(data);
-      } catch (err) {
-        console.log("error");
-      }
-    };
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+    const { productId } = useParams();
+    const [productData, setProductData] = useState([]);
 
-    fetchData();
-    if (!user) {
-      navigate("/Connexion");
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await ProductData();
+                setProductData(data);
+            } catch (err) {
+                console.log("error");
+            }
+        };
+
+        fetchData();
+        if (!user) {
+            navigate("/Connexion");
+        }
+    }, []);
+
+    const selectedProduct = productData.find(
+        (product) => product.id === productId
+    );
+
+    const similarProducts = productData.filter(
+        (product) =>
+            product.category === selectedProduct?.category &&
+            product.id !== productId
+    );
+    const { addToCart } = useContext(CartContext);
+
+    if (!selectedProduct) {
+        return <div>Product not found</div>;
     }
-  }, []);
 
-  const selectedProduct = productData.find(
-    // (product) => product.id === parseInt(productId)
-    (product) => product.id === productId
-  );
- 
-  const similarProducts = productData.filter(
-    (product) =>
-      product.category === selectedProduct.category &&
-      product.id !== parseInt(productId)
-  );
-  const { addToCart } = useContext(CartContext);
-  if (!selectedProduct) {
-    return <div>Product not found</div>;
-
-  }
-
-  return (
-    <ProductDetailsWrapper>
-      <ProductImageWrapper>
-        <ProductImage src={selectedProduct.photo} alt={selectedProduct.name} />
-      </ProductImageWrapper>
-      <ProductInfo>
-        <h2>{selectedProduct.name}</h2>
-        <p>Price: {selectedProduct.price} DA</p>
-        {/* Add other product details */}
-        <button
-          className="button-ani"
-          onClick={() => addToCart(selectedProduct)}
-        >
-          Ajouter au panier
-        </button>
-      </ProductInfo>
-
-      <h3>Similar Products</h3>
-      <SimilarProductsWrapper>
-        {similarProducts.map((product) => (
-          <Link to={`/product-details/${product.id}`} key={product.id}>
-          <>
-            <SimilarProductCard>
-              <SimilarProductImage src={product.photo} alt={product.name} />
-              <SimilarProductInfo>
-                <h4>{product.name}</h4>
-                <p>Price: {product.price} DA</p>
-              </SimilarProductInfo>
-              <button
-                className="button-ani"
-                onClick={() => addToCart(selectedProduct)}
-              >
-                Ajouter au panier
-              </button>
-            </SimilarProductCard>
-            </>
-           </Link>
-        ))}
-      </SimilarProductsWrapper>
-    </ProductDetailsWrapper>
-  );
+    return (
+        <div>
+            <ProductDetailsContainer>
+                <ProductImage src={selectedProduct.photo} alt={selectedProduct.name} />
+                <ProductInfo>
+                    <h2>{selectedProduct.name}</h2>
+                    <p className="Price">Price: {selectedProduct.price} DA</p>
+                    <h5>{selectedProduct.description}</h5>
+                    <ActionButtons>
+                        <button className="button-ani" onClick={() => addToCart(selectedProduct)}>
+                            Add to Cart
+                        </button>
+                    </ActionButtons>
+                </ProductInfo>
+            </ProductDetailsContainer>
+            <SimilarProductsContainer>
+                <h3>Similar Products</h3>
+                <div style={{ display: 'flex', overflowX: 'auto' , flexWrap: 'wrap'}}>
+                    {similarProducts.map((product) => (
+                        <SimilarProductCard key={product.id}>
+                            <Link to={`/product-details/${product.id}`}>
+                                <SimilarProductImage src={product.photo} alt={product.name} />
+                                <h3>{product.name}</h3>
+                                <p className = "Price">Price: {product.price} DA</p>
+                            </Link>
+                            <button
+                                className="button-ani"
+                                onClick={() => addToCart(product)}
+                            >
+                                Add to Cart
+                            </button>
+                        </SimilarProductCard>
+                    ))}
+                </div>
+            </SimilarProductsContainer>
+        </div>
+    );
 };
 
 export default ProductDetailsPage;

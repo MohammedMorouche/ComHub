@@ -3,10 +3,42 @@
   margin: 0;
   padding: 0;
 }
-.shop .gvXYeC {
-  width: 30%;
+.success-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }
-.puuul{
+
+.success-icon {
+  font-size: 48px;
+  color: white;
+  background-color: green;
+  border-radius: 50%;
+  animation: success-animation 1s ease-in-out infinite;
+}
+@media (max-width: 767px) {
+  .wee {
+    flex-wrap: wrap;
+  }
+}
+.cgQIGr{
+  flex-wrap: wrap;
+}
+
+@keyframes success-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.puuul {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,6 +73,9 @@ body {
 ul {
   list-style: none;
 }
+.shop .jcAWUP {
+  width: 30%;
+}
 
 .container {
   padding-left: 15px;
@@ -53,6 +88,12 @@ ul {
 @media (min-width: 768px) {
   .container {
     width: 750px;
+  }
+  .shop .gvXYeC {
+    width: 30%;
+  }
+  .shop .jcAWUP {
+    width: 30%;
   }
 }
 @media (min-width: 662px) {
@@ -75,8 +116,18 @@ ul {
   .NosCategories .container .categories-container div {
     width: 100%;
   }
+  .shop .gvXYeC {
+    width: 100%;
+  }
+  .shop .jcAWUP {
+    width: 100%;
+  }
+
   .landing .od {
     left: -50px;
+  }
+  .shop .gvXYeC {
+    width: 100%;
   }
 
   .footer div {
@@ -711,7 +762,7 @@ a:hover {
   padding-bottom: 10px;
   border-bottom: 1px solid #777;
 }
-.fax{
+.fax {
   position: fixed;
   /* top: 100%; */
   right: 5px;
@@ -734,12 +785,11 @@ a:hover {
   .shop-container .shop .sidebar {
     display: none;
   }
-  .before div{
-    width:100%;
+  .before div {
+    width: 100%;
   }
 
-
- .shop .open {
+  .shop .open {
     display: block;
     z-index: 2;
     background-color: #06122f;
@@ -748,12 +798,11 @@ a:hover {
     position: fixed;
     top: 80px;
     left: 0;
-    
   }
   .shop .open li {
     padding: 20px;
   }
-  .filtrer{
+  .filtrer {
     display: block;
   }
   .before .pathSidebar {
@@ -764,25 +813,22 @@ a:hover {
   }
   .shop-container .products-container .produit {
     width: 50%;
+  }
 }
-
-}
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .shop-container .products-container {
     width: 70%;
   }
   .shop-container .products-container .produit {
     width: 33%;
-}
-.filtrer{
-  display: none;
-}
-
+  }
+  .filtrer {
+    display: none;
+  }
 }
 .shop-container .shop .sidebar ul {
   margin-bottom: 20px;
 }
-
 
 .filtH3 {
   padding-left: 20px;

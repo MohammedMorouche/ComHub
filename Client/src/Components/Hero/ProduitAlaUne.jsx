@@ -41,7 +41,7 @@ const ProduitALaLune = () => {
             />
             // </ScrollToTop>
           ))}
-          {/* <Produit
+          {/* <Produit  
                         image={image1}
                         name="ASUS 24″ LED – TUF VG249Q1A"
                         price="37900"
