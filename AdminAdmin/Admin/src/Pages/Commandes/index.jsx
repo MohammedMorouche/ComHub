@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import { db } from "../../firebase-config";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
+
 const PaginationComponent = ({ rowsPerPageText, rangeSeparatorText, noRowsPerPage, currentPage, totalPages, onChangeRowsPerPage, onChangePage }) => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Button onClick={() => onChangePage(currentPage - 1)} disabled={currentPage === 1}>
@@ -20,7 +21,7 @@ const PaginationComponent = ({ rowsPerPageText, rangeSeparatorText, noRowsPerPag
 
 function Commandes() {
   const [data, setData] = useState([]);
-  const commandesCollectionRef = collection(db, "Commande");
+  const commandesCollectionRef = collection(db, "Commandes");
 
   useEffect(() => {
     const fetchCommandes = async () => {
@@ -28,7 +29,7 @@ function Commandes() {
       const commandesData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-        laivr: doc.data().laivr || false,
+        laivr: doc.data().delivery || false,
       }));
       setData(commandesData);
     };
@@ -36,25 +37,32 @@ function Commandes() {
   }, []);
 
   const columns = [
-    { name: 'Client', selector: row => row.User },
-    { name: 'Produit', selector: row => row.Produit },
-    { name: 'Date', selector: row => new Date(row.Date?.toDate()).toLocaleDateString() },
-    { name: 'Prix Total', selector: row => row['Prix total'] },
-    { name: 'Adresse', selector : row=> row.Adresse},
+    { name: 'Client', selector: row => row['name_user'] ,grow : 2},
+    { 
+      name: 'Produit', 
+      selector: row => row.products.map((product, index) => (
+        <div key={index}>
+          {product.name} (Quantité: {product.quantity})
+        </div>
+      )) ,grow:6
+    },{ name: 'Date', selector: row => new Date(row.date?.toDate()).toLocaleDateString() },
+    {  name: 'Prix Total', selector: row => `${row.price} DA` , grow : 2},
+    { name: 'Adresse', selector : row=> row.Adresse },
+    { name: 'Telephone', selector : row => row.Telephone},
     {
       name: 'Etat de livraison',
       cell: row => {
-        return row.laivr ? 'Livrée' : 'En cours';
+        return row.delivery ? 'Livrée' : 'En cours';
       }
     },
     {
       name: 'Valider la livraison',
       cell: row => (
         <Button
-          type={row.laivr ? 'primary' : 'default'}
+          type={row.delivery ? 'primary' : 'default'}
           onClick={() => handleDeliveryValidation(row)}
         >
-          {row.laivr ? 'Livrée' : 'Valider'}
+          {row.delivery ? 'Livrée' : 'Valider'}
         </Button>
       ),
     },
@@ -62,19 +70,19 @@ function Commandes() {
 
   const handleDeliveryValidation = async (row) => {
     // If the current value is already true ("Livrée"), do nothing
-    if (row.laivr === true) {
+    if (row.delivery === true) {
       return;
     }
 
     // Toggle the value
-    const updatedValue = !row.laivr;
+    const updatedValue = !row.delivery;
 
     // Update the document only if the current value is false
-    if (!row.laivr) {
-      const docRef = doc(db, 'Commande', row.id);
+    if (!row.delivery) {
+      const docRef = doc(db, 'Commandes', row.id);
       try {
         // Update the laivr field of the document to updatedValue
-        await updateDoc(docRef, { laivr: updatedValue });
+        await updateDoc(docRef, { delivery: updatedValue });
         console.log('Document updated successfully');
       } catch (error) {
         console.error('Error updating document:', error);
@@ -85,7 +93,7 @@ function Commandes() {
     // Update the local state to reflect the change
     const updatedData = data.map((item) => {
       if (item.id === row.id) {
-        return { ...item, laivr: updatedValue };
+        return { ...item, delivery: updatedValue };
       }
       return item;
     });
@@ -133,7 +141,7 @@ function Commandes() {
             columns={columns}
             data={data}
             customStyles={customStyles}
-            selectableRows
+            /*selectableRows*/
             fixedHeader
             pagination
             paginationPerPage={5} // Limite le nombre de lignes par page à 5

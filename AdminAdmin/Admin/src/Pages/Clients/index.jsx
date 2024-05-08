@@ -35,11 +35,11 @@ function Clients() {
   }, [])
 
   const columns = [
-    { name: 'Id', selector: row => row.id, sortable: true },
-    { name: 'FullName', selector: row => row.FullName, sortable: true },
-    { name: 'Email Address', selector: row => row.Email, sortable: true },
-    { name: 'Address', selector: row => row.Adresse, sortable: true },
-    { name: 'Phone Number', selector: row => row.Telephone, sortable: true }
+    { name: 'Id', selector: row => row.id, sortable: true, grow :2 },
+    { name: 'FullName', selector: row => row.FullName, sortable: true ,grow :2},
+    { name: 'Email Address', selector: row => row.Email, sortable: true ,grow :2},
+    { name: 'Address', selector: row => row.Adresse, sortable: true ,grow : 2},
+    { name: 'Telephone', selector: row => row.Telephone, sortable: true }
   ];
 
   const customStyles = {

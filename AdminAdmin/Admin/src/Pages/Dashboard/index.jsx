@@ -30,7 +30,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchCommandeDocumentCount = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'Commande'));
+        const querySnapshot = await getDocs(collection(db, 'Commandes'));
         const count = querySnapshot.size;
         setCommandeDocumentCount(count);
       } catch (error) {
