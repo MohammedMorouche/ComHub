@@ -40,6 +40,7 @@ function Commandes() {
     { name: 'Produit', selector: row => row.Produit },
     { name: 'Date', selector: row => new Date(row.Date?.toDate()).toLocaleDateString() },
     { name: 'Prix Total', selector: row => row['Prix total'] },
+    { name: 'Adresse', selector : row=> row.Adresse},
     {
       name: 'Etat de livraison',
       cell: row => {
