@@ -6,6 +6,9 @@ import { useState } from "react";
 import { CartContext } from "./CartUtils.jsx";
 import ProductData from "../Data/ProductData.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { onAuthStateChanged } from 'firebase/auth';
+
+
 import { auth } from "../../firebase.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -63,6 +66,17 @@ export function Cart() {
   const [isLoading, setIsLoading] = useState(true);
   // const user = auth.currentUser;
   const navigate = useNavigate();
+  const [usere, setUsere] = useState(null);
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
+    setUsere(currentUser);
+  });
+
+
+  return () => {
+    unsubscribe();
+  };
+}, []);
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -94,7 +108,13 @@ export function Cart() {
       const querySnapshot = await getDocs(usersCollectionRef, {
         where: ["uid", "==", uid],
       });
-      const userDoc = querySnapshot.docs[0];
+      // const userDoc = querySnapshot.docs[0];
+      let userDoc;
+      querySnapshot.forEach((doc) => {
+          if (doc.data().id === uid) {
+              userDoc = doc;
+          }
+      });
       const userData = userDoc.data();
       return {
         FullName: userData.FullName || null,
@@ -106,16 +126,18 @@ export function Cart() {
       return { FullName: null, telephone: null };
     }
   };
+// const usere = auth.currentUser;
 
   const handleCheckout = async () => {
     try {
-      const usere = auth.currentUser;
+      
       // Check if user is authenticated
       // const user = firebase.auth().currentUser;
       // if (!user) {
       //   navigate('/Connexion');
       //   return;
       // }
+      
       const userProfile = await getUserProfile(usere.uid);
 
       // Prepare order data
@@ -134,17 +156,15 @@ export function Cart() {
         delivery: false, // Set delivery status to false by default
       };
 
-      // Save order to Firestore
-      // const docRef = await fs.collection('Commandes').addDoc(order);
+  
       const docRef = await addDoc(collection(fs, "Commandes"), order);
       console.log("Order saved with ID:", docRef.id);
 
-      // Optional: Clear the cart after successful checkout
-      // clearCart(); // Implement this function to clear the cart items
+    
 
       navigate("/Checkout");
 
-      // After 3 seconds, redirect to the home page
+
       setTimeout(() => {
         navigate("/");
       }, 3000);
