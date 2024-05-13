@@ -29,17 +29,16 @@ const ProduitEnPromotion = () => {
           {productData.map((product) =>
             product.promotion ? (
               <div className="propro"
-                key={product.id}
-                style={{ position: "relative", display: "inline-block" }}
+               
               >
-                <span className="sold-sticker">Sold!</span>
+                
                 <Produit
                   key={product.id}
                   image={product.photo}
                   name={product.name}
                   price={product.price}
                   product={product}
-                  style={{ position: "relative" }} // Ensure the product itself remains positioned relatively
+                  // Ensure the product itself remains positioned relatively
                 />
               </div>
             ) : null

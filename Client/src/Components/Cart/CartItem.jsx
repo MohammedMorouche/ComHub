@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const CartItem = ({ product, removeFromCart, updateQuantity }) => {
     const { id, imgSrc, titreProduit, prixProduit, quantity } = product;
 
-    const handleRemoveFromCart = () => {
+    const handleRemoveFromCart = () => {  
         removeFromCart(id);
     };  
 

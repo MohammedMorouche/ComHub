@@ -18,12 +18,14 @@ const ProductCard = styled.div`
   border-radius: 9px;
   position: relative;
   color: white;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &:hover {
     transform: translateY(-5px);
   }
-
-
 `;
 const ProductImage = styled.img`
   width: 200px;
@@ -46,12 +48,23 @@ const Produit = ({ image, name, price, product }) => {
   }, []);
   return (
     <ProductCard>
-      {/* <Link to={`/product-details/${product.id}`}> */}
+      {product.promotion && <span className="sold-sticker">Sold!</span>}
+
       <ScrollToTop to={user ? `/product-details/${product.id}` : "/connexion"}>
-      {/* <ScrollToTop to={user ? `/product-details` : "/connexion"}> */}
         <ProductImage src={image} alt={name} />
         <h4>{name}</h4>
-        <p>{price} DA</p>
+        {product.promotion ? (
+          <>
+            <p style={{ textDecoration: "line-through", color: "gray" }}>
+              {price} DA
+            </p>
+            <p style={{ fontWeight: "bold", color: "red" }}>
+              {product.newprice} DA
+            </p>
+          </>
+        ) : (
+          <p>{price} DA</p>
+        )}
       </ScrollToTop>
       {/* </Link> */}
       {user && (

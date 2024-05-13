@@ -59,7 +59,7 @@ const Emptycart = styled.div`
 `;
 
 export function Cart() {
-  const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);  
   const [user] = useAuthState(auth);
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -78,9 +78,10 @@ export function Cart() {
   }, []);
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + (item.promotion ? item.newprice : item.price) * item.quantity,
     0
-  );
+);
+
 
   // Add a loading state
 
@@ -122,8 +123,8 @@ export function Cart() {
       };
     } catch (error) {
       console.error("Error fetching user profile:", error);
-      return { FullName: null, telephone: null };
-    }
+      return { FullName: null, telephone: null };  
+    }  
   };
   // const usere = auth.currentUser;
 
@@ -141,12 +142,12 @@ export function Cart() {
       // Prepare order data
       const order = {
         date: new Date(),
-        price: totalPrice.toFixed(2),
+        total_price: totalPrice.toFixed(2),
         products: cartItems.map((item) => ({
           id: item.id,
           name: productData.find((product) => product.id === item.id)?.name,
           quantity: item.quantity,
-          total_price: item.price,
+          price: (item.promotion ? item.newprice : item.price),
         })),
         name_user: userProfile.FullName || user.email, // Use the user's full name or email
         Telephone: userProfile.Telephone || null,
@@ -186,7 +187,7 @@ export function Cart() {
                 <CartItemImage src={product.photo} alt={product.name} />
                 <CartItemInfo>
                   <h3>{product.name}</h3>
-                  <p>{product.price} DA</p>
+                  {product.promotion ? (<p  style={{ color: "red" }}>{product.newprice} DA</p>):(<p>{product.price} DA</p>)}
                   <CartItemQuantity>
                     <QuantityButton
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}

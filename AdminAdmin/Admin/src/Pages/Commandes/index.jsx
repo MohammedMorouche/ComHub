@@ -42,11 +42,11 @@ function Commandes() {
       name: 'Produit', 
       selector: row => row.products.map((product, index) => (
         <div key={index}>
-          {product.name} (Quantité: {product.quantity})
+          {product.name} (Quantité: {product.quantity}) ({product.price})
         </div>
       )) ,grow:6
     },{ name: 'Date', selector: row => new Date(row.date?.toDate()).toLocaleDateString() },
-    {  name: 'Prix Total', selector: row => `${row.price} DA` , grow : 2},
+    {  name: 'Prix Total', selector: row => `${row.total_price} DA` , grow : 2},
     { name: 'Adresse', selector : row=> row.Adresse },
     { name: 'Telephone', selector : row => row.Telephone},
     {

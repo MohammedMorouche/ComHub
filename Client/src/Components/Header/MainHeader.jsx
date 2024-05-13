@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 
-
 const CartLink = styled(Link)`
   color: #fff;
   text-decoration: none;
@@ -134,10 +133,12 @@ const MainHeader = () => {
             <>
               <button className="cart">
                 <ScrollToTop to="/Cart">
-                <CartLink>
-                  <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
-                  <span></span>
-                </CartLink>
+                  <CartLink>
+                    <FaCartFlatbedSuitcase size={25}></FaCartFlatbedSuitcase>
+                    <span style={{ marginBottom: "10px" }}>
+                      {cartItems.length}
+                    </span>
+                  </CartLink>
                 </ScrollToTop>
               </button>
               <button onClick={handleLogout} className="button-ani">

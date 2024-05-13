@@ -28,9 +28,12 @@ const Shop = () => {
   const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { pathname } = useLocation();
-  
+  const [countTous, setCountTous] = useState(0);
+  const [countLaptops, setCountLaptops] = useState(0);
+  const [countComposants, setCountComposants] = useState(0);
+  const [countPeripheriques, setCountPeripheriques] = useState(0);
+  const [countAccessoires, setCountAccessoires] = useState(0);
   // const { data, isLoading, error } = ProductData();
-
 
   // const [user] = useAuthState(auth);
   // // const user = auth.currentUser;
@@ -58,11 +61,10 @@ const Shop = () => {
     // setProducts(data);
     const fetchData = async () => {
       try {
-        
-        const data = await ProductData();  
+        const data = await ProductData();
         setProducts(data);
       } catch (err) {
-      console.log("error");
+        console.log("error");
       }
     };
 
@@ -106,6 +108,36 @@ const Shop = () => {
     setFilteredProducts(filtered);
   }, [products, activeFilter, priceFilter, sortOrder, searchQuery]);
 
+  const countCategories = (products) => {
+    const counts = {
+      all: products.length,
+      pc: 0,
+      composants: 0,
+      peripheriques: 0,
+      accessoires: 0,
+    };
+
+    products.forEach((product) => {
+      const { category } = product;
+      counts[category]++;
+    });
+
+    return counts;
+  };
+
+  useEffect(() => {
+    // ... (rest of the useEffect code)
+
+    // Count occurrences of each category
+    const counts = countCategories(products);
+
+    // Update the respective state variables
+    setCountTous(counts.all);
+    setCountLaptops(counts.pc);
+    setCountComposants(counts.composants);
+    setCountPeripheriques(counts.peripheriques);
+    setCountAccessoires(counts.accessoires);
+  }, [products]);
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
   };
@@ -177,7 +209,7 @@ const Shop = () => {
               <ul>
                 <li>
                   <a href="" onClick={() => handleFilterChange("all")}>
-                    <ActiveLink to="/shop/all">Tous</ActiveLink>
+                    <ActiveLink to="/shop/all">Tous ({countTous})</ActiveLink>
                   </a>
                 </li>
                 <li>
@@ -185,7 +217,7 @@ const Shop = () => {
                     onClick={() => handleFilterChange("pc")}
                     to="/shop/pc"
                   >
-                    Laptops
+                    Laptops ({countLaptops})
                   </ActiveLink>
                 </li>
                 <li>
@@ -193,7 +225,7 @@ const Shop = () => {
                     onClick={() => handleFilterChange("composants")}
                     to="/shop/composants"
                   >
-                    Composants
+                    Composants ({countComposants})
                   </ActiveLink>
                 </li>
                 <li>
@@ -201,7 +233,7 @@ const Shop = () => {
                     onClick={() => handleFilterChange("peripheriques")}
                     to="/shop/peripheriques"
                   >
-                    Périphériques
+                    Périphériques ({countPeripheriques})
                   </ActiveLink>
                 </li>
                 <li>
@@ -209,7 +241,7 @@ const Shop = () => {
                     onClick={() => handleFilterChange("accessoires")}
                     to="/shop/accessoires"
                   >
-                    Accessoires
+                    Accessoires ({countAccessoires})
                   </ActiveLink>
                 </li>
               </ul>
@@ -297,7 +329,7 @@ const Shop = () => {
                 <Produit
                   key={product.id}
                   image={product.photo}
-                  name={product.name}  
+                  name={product.name}
                   price={product.price}
                   // addToCart={addToCart}
                   product={product} // Passing the addToCart function as a prop
