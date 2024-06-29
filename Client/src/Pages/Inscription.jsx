@@ -120,7 +120,7 @@ function Inscription() {
               />
             </div>
             <div>
-              <label htmlFor="telephone">Telephone</label>
+              <label htmlFor="telephone">Téléphone</label>
               <input
                 type="tel"
                 id="telephone"

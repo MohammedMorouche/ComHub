@@ -1,7 +1,7 @@
 import { Image, Space } from "antd";
 import Comhubimg from "../../assets/ComHub__1_-removebg-preview.png";
 
-function AppHeader() {
+function AppHeader({ user, onLogout }) {
   return (
     <div className="AppHeader">
       <img className="logostyle" src={Comhubimg} alt="ComHub logo" />
@@ -9,6 +9,9 @@ function AppHeader() {
         Com<span style={{ color: "red" }}>Hub</span> dashboard
       </h1>
       <Space />
+      
+      {user && <button  onClick={onLogout}>Logout</button>}
+
     </div>
   );
 }
